@@ -8,12 +8,13 @@ import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import java.io.DataOutputStream
 import java.io.IOException
+import java.io.PrintWriter
 import java.net.Socket
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var mediaPlayer: MediaPlayer
-    private val ipAddress = "192.168.100.44" // Reemplaza con la dirección IP del dispositivo de transmisión
+    private val ipAddress = "192.168.100.32" // Reemplaza con la dirección IP del dispositivo de transmisión
     private val port = 1234 // Puerto para la conexión
     private lateinit var socket: Socket
     private lateinit var outputStream: DataOutputStream
@@ -24,7 +25,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         setContentView(R.layout.activity_main)
 
         // Establecer la conexión de red en un hilo separado para evitar bloquear el hilo principal
-        iniciarConexion()
+        //iniciarConexion()
 
         mediaPlayer = MediaPlayer.create(this, R.raw.sound)
 
@@ -52,16 +53,16 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(view: View) {
         when (view.id) {
             R.id.button1 ->{
-                enviarUrl("http://azxtv.com/hls/stream.m3u8?PlaylistM3UCL")
-                playSound()
+                enviarUrl("http://poster.com.ar/marito/")
+                //playSound()
             }
             R.id.button2 ->{
-                enviarUrl("https://59f1cbe63db89.streamlock.net:1443/retroplustv/_definst_/retroplustv/playlist.m3u8?PlaylistM3UCL")
-                playSound()
+                enviarUrl("http://poster.com.ar/sanroque/")
+                //playSound()
             }
             R.id.button3 ->{
                 enviarUrl("https://live-01-02-eltrece.vodgc.net/eltrecetv/index.m3u8?PlaylistM3UCL")
-                playSound()
+                //playSound()
             }
             R.id.button4 -> playSound()
             R.id.button5 -> playSound()
@@ -81,22 +82,18 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun enviarUrl(url: String) {
-        if (isSocketInitialized && socket.isConnected) {
-            Thread {
-                try {
-                    outputStream.writeUTF(url)
-                    outputStream.flush()
-                    Log.d("ControlApp", "URL enviada: $url")
-                } catch (e: IOException) {
-                    e.printStackTrace()
-                    Log.e("ControlApp", "Error al enviar la URL: ${e.message}")
-                }
-            }.start()
-        } else {
-            // Si la conexión no está establecida, intenta establecerla nuevamente
-            iniciarConexion()
-        }
+        Thread {
+            try {
+                val socket = Socket("192.168.100.32", 12345)
+                val output = PrintWriter(socket.getOutputStream(), true)
+                output.println(url)
+                socket.close()
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+        }.start()
     }
+
 
     private fun iniciarConexion() {
         Thread {
@@ -114,7 +111,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             }
         }.start()
     }
-
     override fun onDestroy() {
         super.onDestroy()
         mediaPlayer.release()
