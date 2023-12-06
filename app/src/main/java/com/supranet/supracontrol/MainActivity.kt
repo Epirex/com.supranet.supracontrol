@@ -51,12 +51,21 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 //playSound()
             }
             R.id.button3 ->{
-                enviarUrl("https://live-01-02-eltrece.vodgc.net/eltrecetv/index.m3u8?PlaylistM3UCL")
+                enviarUrl("https://google.com")
                 //playSound()
             }
-            R.id.button4 -> playSound()
-            R.id.button5 -> playSound()
-            R.id.button6 -> playSound()
+            R.id.button4 ->{
+                enviarUrl("https://www.bing.com/")
+                //playSound()
+            }
+            R.id.button5 ->{
+                enviarUrl("https://epirex.github.io/")
+                //playSound()
+            }
+            R.id.button6 ->{
+                enviarUrl("https://epirex.github.io/viernes/")
+                //playSound()
+            }
             R.id.button7 -> playSound()
             R.id.button8 -> playSound()
             R.id.button9 -> playSound()
@@ -74,7 +83,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     private fun enviarUrl(url: String) {
         Thread {
             try {
-                val socket = Socket("192.168.100.32", 12345)
+                val socket = Socket("192.168.100.128", 12345)
                 val output = PrintWriter(socket.getOutputStream(), true)
                 output.println(url)
                 socket.close()
