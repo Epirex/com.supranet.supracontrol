@@ -2,11 +2,9 @@ package com.supranet.supracontrol
 
 import android.media.MediaPlayer
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
-import java.io.DataOutputStream
 import java.io.IOException
 import java.io.PrintWriter
 import java.net.Socket
@@ -14,18 +12,10 @@ import java.net.Socket
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var mediaPlayer: MediaPlayer
-    private val ipAddress = "192.168.100.32" // Reemplaza con la dirección IP del dispositivo de transmisión
-    private val port = 1234 // Puerto para la conexión
-    private lateinit var socket: Socket
-    private lateinit var outputStream: DataOutputStream
-    private var isSocketInitialized = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        // Establecer la conexión de red en un hilo separado para evitar bloquear el hilo principal
-        //iniciarConexion()
 
         mediaPlayer = MediaPlayer.create(this, R.raw.sound)
 
@@ -94,23 +84,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         }.start()
     }
 
-
-    private fun iniciarConexion() {
-        Thread {
-            try {
-                socket = Socket(ipAddress, port)
-                outputStream = DataOutputStream(socket.getOutputStream())
-
-                isSocketInitialized = true
-
-                Log.d("ControlApp", "Conexión de socket establecida")
-
-            } catch (e: IOException) {
-                e.printStackTrace()
-                Log.e("ControlApp", "Error al establecer la conexión de socket: ${e.message}")
-            }
-        }.start()
-    }
     override fun onDestroy() {
         super.onDestroy()
         mediaPlayer.release()
