@@ -17,55 +17,55 @@
             android:id="@+id/button1"
             android:layout_width="wrap_content"
             android:layout_height="100dp"
-            android:text="Botón 1" />
+            android:text="MENU 1" />
 
         <Button
             android:id="@+id/button2"
             android:layout_width="wrap_content"
             android:layout_height="100dp"
-            android:text="Botón 2" />
+            android:text="MENU 2" />
 
         <Button
             android:id="@+id/button3"
             android:layout_width="wrap_content"
             android:layout_height="100dp"
-            android:text="Botón 3" />
+            android:text="MENU 3" />
 
         <Button
             android:id="@+id/button4"
             android:layout_width="wrap_content"
             android:layout_height="100dp"
-            android:text="Botón 4" />
+            android:text="MENU 4" />
 
         <Button
             android:id="@+id/button5"
             android:layout_width="wrap_content"
             android:layout_height="100dp"
-            android:text="Botón 5" />
+            android:text="MENU 5" />
 
         <Button
             android:id="@+id/button6"
             android:layout_width="wrap_content"
             android:layout_height="100dp"
-            android:text="Botón 6" />
+            android:text="MENU 6" />
 
         <Button
             android:id="@+id/button7"
             android:layout_width="wrap_content"
             android:layout_height="100dp"
-            android:text="Botón 7" />
+            android:text="MENU 7" />
 
         <Button
             android:id="@+id/button8"
             android:layout_width="wrap_content"
             android:layout_height="100dp"
-            android:text="Botón 8" />
+            android:text="MENU 8" />
 
         <Button
             android:id="@+id/button9"
             android:layout_width="wrap_content"
             android:layout_height="100dp"
-            android:text="Botón 9" />
+            android:text="MENU 9" />
 
     </GridLayout>
 
