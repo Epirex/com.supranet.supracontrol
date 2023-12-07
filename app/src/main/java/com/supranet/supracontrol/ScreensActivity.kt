@@ -1,7 +1,8 @@
 package com.supranet.supracontrol
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
-import android.view.View
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -14,6 +15,7 @@ import com.google.android.material.textfield.TextInputLayout
 class ScreensActivity : AppCompatActivity() {
 
     private lateinit var ipCardContainer: LinearLayout
+    private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,6 +23,11 @@ class ScreensActivity : AppCompatActivity() {
 
         val extendedFab: ExtendedFloatingActionButton = findViewById(R.id.extended_fab)
         ipCardContainer = findViewById(R.id.ip_card_container)
+
+        sharedPreferences = getSharedPreferences("IP_PREFERENCES", Context.MODE_PRIVATE)
+
+        // Cargar direcciones IP almacenadas
+        loadSavedIpAddresses()
 
         extendedFab.setOnClickListener {
             showIpInputDialog()
@@ -35,7 +42,7 @@ class ScreensActivity : AppCompatActivity() {
         )
         inputLayout.layoutParams = layoutParams
 
-        val ipAddressEditText = EditText(this) // Mover la creación aquí
+        val ipAddressEditText = EditText(this)
         ipAddressEditText.hint = "Introduce la dirección IP"
         inputLayout.addView(ipAddressEditText)
 
@@ -54,11 +61,25 @@ class ScreensActivity : AppCompatActivity() {
     }
 
     private fun saveIpAddress(ipAddress: String) {
+        val editor = sharedPreferences.edit()
+        val ipAddressSet = HashSet(sharedPreferences.getStringSet("IP_ADDRESSES", HashSet())!!)
+        ipAddressSet.add(ipAddress)
+        editor.putStringSet("IP_ADDRESSES", ipAddressSet)
+        editor.apply()
+
         // Crear una nueva tarjeta para la dirección IP
         val newCard = createIpCard(ipAddress)
 
         // Agregar la nueva tarjeta al contenedor
         ipCardContainer.addView(newCard)
+    }
+
+    private fun loadSavedIpAddresses() {
+        val ipAddressSet = sharedPreferences.getStringSet("IP_ADDRESSES", HashSet()) ?: HashSet()
+        for (ipAddress in ipAddressSet) {
+            val newCard = createIpCard(ipAddress)
+            ipCardContainer.addView(newCard)
+        }
     }
 
     private fun createIpCard(ipAddress: String): CardView {
@@ -81,6 +102,3 @@ class ScreensActivity : AppCompatActivity() {
         return cardView
     }
 }
-
-
-
