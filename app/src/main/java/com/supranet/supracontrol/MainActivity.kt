@@ -1,5 +1,6 @@
 package com.supranet.supracontrol
 
+import android.content.Context
 import android.content.Intent
 import android.media.MediaPlayer
 import android.os.Bundle
@@ -17,6 +18,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        // Obtener las direcciones IP guardadas
+        val sharedPreferences = getSharedPreferences("IP_PREFERENCES", Context.MODE_PRIVATE)
+        val ipAddressSet = sharedPreferences.getStringSet("IP_ADDRESSES", HashSet()) ?: HashSet()
 
         mediaPlayer = MediaPlayer.create(this, R.raw.sound)
 
@@ -90,10 +95,19 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     private fun enviarUrl(url: String) {
         Thread {
             try {
-                val socket = Socket("192.168.100.128", 12345)
-                val output = PrintWriter(socket.getOutputStream(), true)
-                output.println(url)
-                socket.close()
+                val sharedPreferences = getSharedPreferences("IP_PREFERENCES", Context.MODE_PRIVATE)
+                val ipAddressSet = sharedPreferences.getStringSet("IP_ADDRESSES", HashSet()) ?: HashSet()
+
+                for (ipAddress in ipAddressSet) {
+                    try {
+                        val socket = Socket(ipAddress, 12345)
+                        val output = PrintWriter(socket.getOutputStream(), true)
+                        output.println(url)
+                        socket.close()
+                    } catch (e: IOException) {
+                        e.printStackTrace()
+                    }
+                }
             } catch (e: IOException) {
                 e.printStackTrace()
             }
