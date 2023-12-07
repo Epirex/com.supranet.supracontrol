@@ -15,7 +15,7 @@
         android:layout_marginBottom="50dp" >
 
         <Button
-            android:id="@+id/buttonip"
+            android:id="@+id/buttonscreens"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:text="Configurar pantallas" />

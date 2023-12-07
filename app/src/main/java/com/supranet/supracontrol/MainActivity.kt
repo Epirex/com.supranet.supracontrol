@@ -1,5 +1,6 @@
 package com.supranet.supracontrol
 
+import android.content.Intent
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.view.View
@@ -28,6 +29,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         val button7: Button = findViewById(R.id.button7)
         val button8: Button = findViewById(R.id.button8)
         val button9: Button = findViewById(R.id.button9)
+        val buttonscreens: Button = findViewById(R.id.buttonscreens)
 
         button1.setOnClickListener(this)
         button2.setOnClickListener(this)
@@ -38,6 +40,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         button7.setOnClickListener(this)
         button8.setOnClickListener(this)
         button9.setOnClickListener(this)
+        buttonscreens.setOnClickListener(this)
     }
 
     override fun onClick(view: View) {
@@ -69,6 +72,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             R.id.button7 -> playSound()
             R.id.button8 -> playSound()
             R.id.button9 -> playSound()
+            R.id.buttonscreens ->{
+                val intent = Intent(this, ScreensActivity::class.java)
+                startActivity(intent)
+            }
         }
     }
 
