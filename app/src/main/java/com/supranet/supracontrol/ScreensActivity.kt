@@ -67,7 +67,10 @@ class ScreensActivity : AppCompatActivity() {
             LinearLayout.LayoutParams.MATCH_PARENT,
             LinearLayout.LayoutParams.WRAP_CONTENT
         )
+        layoutParams.topMargin = resources.getDimensionPixelSize(R.dimen.card_margin)
         cardView.layoutParams = layoutParams
+        cardView.radius = resources.getDimensionPixelSize(R.dimen.card_corner_radius).toFloat()
+        cardView.cardElevation = resources.getDimensionPixelSize(R.dimen.card_elevation).toFloat()
 
         val textView = TextView(this)
         textView.text = "Dirección IP: $ipAddress"
