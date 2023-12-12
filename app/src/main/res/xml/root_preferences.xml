@@ -1,0 +1,61 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory app:title="@string/messages_header">
+
+        <EditTextPreference
+            app:defaultValue="http://poster.com.ar/marito/"
+            app:key="button1_url"
+            app:summary="Toque para cambiar el URL"
+            app:title="Boton 1" />
+
+        <EditTextPreference
+            app:defaultValue="http://poster.com.ar/vira/"
+            app:key="button2_url"
+            app:summary="Toque para cambiar el URL"
+            app:title="Boton 2" />
+
+        <EditTextPreference
+            app:defaultValue="http://poster.com.ar/cassaro/"
+            app:key="button3_url"
+            app:summary="Toque para cambiar el URL"
+            app:title="Boton 3" />
+
+        <EditTextPreference
+            app:defaultValue="http://poster.com.ar/casino/"
+            app:key="button4_url"
+            app:summary="Toque para cambiar el URL"
+            app:title="Boton 4" />
+
+        <EditTextPreference
+            app:defaultValue="http://poster.com.ar/topssy5/"
+            app:key="button5_url"
+            app:summary="Toque para cambiar el URL"
+            app:title="Boton 5" />
+
+        <EditTextPreference
+            app:defaultValue="http://poster.com.ar/pacifico/"
+            app:key="button6_url"
+            app:summary="Toque para cambiar el URL"
+            app:title="Boton 6" />
+
+        <EditTextPreference
+            app:defaultValue="http://supranet.ar/electrohobby/"
+            app:key="button7_url"
+            app:summary="Toque para cambiar el URL"
+            app:title="Boton 7" />
+
+        <EditTextPreference
+            app:defaultValue="http://poster.com.ar/center/"
+            app:key="button8_url"
+            app:summary="Toque para cambiar el URL"
+            app:title="Boton 8" />
+
+        <EditTextPreference
+            app:defaultValue="http://poster.com.ar/forno/"
+            app:key="button9_url"
+            app:summary="Toque para cambiar el URL"
+            app:title="Boton 9" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>
