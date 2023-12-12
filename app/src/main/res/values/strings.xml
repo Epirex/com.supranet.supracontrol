@@ -2,4 +2,6 @@
     <string name="app_name">Control Remoto</string>
     <string name="title_activity_settings">Configuracion de botones</string>
     <string name="messages_header">Toque una opcion para establecer una URL</string>
+    <string name="title_activity_screens2">Configuracion de pantallas</string>
+    <string name="messages_header2">Toque para añadir o editar las pantallas</string>
 </resources>

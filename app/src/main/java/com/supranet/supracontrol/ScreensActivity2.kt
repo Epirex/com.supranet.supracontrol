@@ -1,5 +1,6 @@
 package com.supranet.supracontrol
 
+import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.MenuItem
@@ -9,7 +10,7 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
 
-class MenuActivity : AppCompatActivity() {
+class ScreensActivity2 : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,75 +35,78 @@ class MenuActivity : AppCompatActivity() {
     }
     class SettingsFragment : PreferenceFragmentCompat() {
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-            setPreferencesFromResource(R.xml.menu_preferences, rootKey)
+            setPreferencesFromResource(R.xml.screen_preferences, rootKey)
             val buttonKeys = arrayOf(
-                "button1_url", "button2_url", "button3_url",
-                "button4_url", "button5_url", "button6_url",
-                "button7_url", "button8_url", "button9_url"
+                "screen1_ip", "screen2_ip", "screen3_ip",
+                "screen4_ip", "screen5_ip", "screen6_ip",
+                "screen7_ip", "screen8_ip", "screen9_ip"
             )
 
-            val sharedPrefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
+            val sharedPreferences = requireContext().getSharedPreferences("IP_PREFERENCES", Context.MODE_PRIVATE)
 
-            // Obtener el valor actual de los URL para actualizar los summary
+
+            // Obtener el valor actual de las URL para actualizar los resúmenes
             for (buttonKey in buttonKeys) {
-                val buttonUrl = sharedPrefs.getString(buttonKey, "default_url")
+                val buttonIp = sharedPreferences.getString(buttonKey, "default_url")
 
                 val editTextPreference = findPreference<EditTextPreference>(buttonKey)
 
-                editTextPreference?.summary = "$buttonUrl"
+                editTextPreference?.summary = buttonIp
 
                 editTextPreference?.setOnPreferenceChangeListener { _, newValue ->
-                    sharedPrefs.edit().putString(buttonKey, newValue.toString()).apply()
-                    editTextPreference?.summary = "$newValue"
+                    sharedPreferences.edit().putString(buttonKey, newValue.toString()).apply()
+                    editTextPreference?.summary = newValue.toString()
 
                     true
                 }
             }
+
         }
 
         override fun onPreferenceTreeClick(preference: Preference): Boolean {
             val sharedPrefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
 
             when (preference?.key) {
-                "button1_url" -> {
-                    handleButtonClick("button1_url", sharedPrefs)
+                "screen1_ip" -> {
+                    handleButtonClick("screen1_ip", sharedPrefs)
                 }
-                "button2_url" -> {
-                    handleButtonClick("button2_url", sharedPrefs)
+                "screen2_ip" -> {
+                    handleButtonClick("screen2_ip", sharedPrefs)
                 }
-                "button3_url" -> {
-                    handleButtonClick("button3_url", sharedPrefs)
+                "screen3_ip" -> {
+                    handleButtonClick("screen3_ip", sharedPrefs)
                 }
-                "button4_url" -> {
-                    handleButtonClick("button4_url", sharedPrefs)
+                "screen4_ip" -> {
+                    handleButtonClick("screen4_ip", sharedPrefs)
                 }
-                "button5_url" -> {
-                    handleButtonClick("button5_url", sharedPrefs)
+                "screen5_ip" -> {
+                    handleButtonClick("screen5_ip", sharedPrefs)
                 }
-                "button6_url" -> {
-                    handleButtonClick("button6_url", sharedPrefs)
+                "screen6_ip" -> {
+                    handleButtonClick("screen6_ip", sharedPrefs)
                 }
-                "button7_url" -> {
-                    handleButtonClick("button7_url", sharedPrefs)
+                "screen7_ip" -> {
+                    handleButtonClick("screen7_ip", sharedPrefs)
                 }
-                "button8_url" -> {
-                    handleButtonClick("button8_url", sharedPrefs)
+                "screen8_ip" -> {
+                    handleButtonClick("screen8_ip", sharedPrefs)
                 }
-                "button9_url" -> {
-                    handleButtonClick("button9_url", sharedPrefs)
+                "screen9_ip" -> {
+                    handleButtonClick("screen9_ip", sharedPrefs)
                 }
             }
 
             return super.onPreferenceTreeClick(preference)
         }
 
-        private fun handleButtonClick(buttonKey: String, sharedPrefs: SharedPreferences) {
+        private fun handleButtonClick(buttonKey: String, sharedPreferences: SharedPreferences) {
             val editTextPreference = findPreference<EditTextPreference>(buttonKey)
 
-            editTextPreference?.setOnPreferenceChangeListener { preference, newValue ->
-                sharedPrefs.edit().putString(buttonKey, newValue.toString()).apply()
+            editTextPreference?.setOnPreferenceChangeListener { _, newValue ->
+                sharedPreferences.edit().putString(buttonKey, newValue.toString()).apply()
                 true
             }
         }
+
     }
 }
