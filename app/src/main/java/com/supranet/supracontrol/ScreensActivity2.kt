@@ -48,8 +48,9 @@ class ScreensActivity2 : AppCompatActivity() {
             val sharedPreferences = requireContext().getSharedPreferences("IP_PREFERENCES", Context.MODE_PRIVATE)
 
             for (buttonKey in buttonKeys) {
+                val ipAddress = sharedPreferences.getString(buttonKey, "")
                 val editTextPreference = findPreference<EditTextPreference>(buttonKey)
-
+                editTextPreference?.summary = ipAddress
                 editTextPreference?.setOnPreferenceChangeListener { _, newValue ->
                     sharedPreferences.edit().putString(buttonKey, newValue.toString()).apply()
                     editTextPreference?.summary = newValue.toString()
