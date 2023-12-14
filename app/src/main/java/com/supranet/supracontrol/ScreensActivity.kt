@@ -3,102 +3,83 @@ package com.supranet.supracontrol
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.widget.EditText
-import android.widget.LinearLayout
-import android.widget.TextView
-import androidx.appcompat.app.AlertDialog
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import androidx.cardview.widget.CardView
-import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-import com.google.android.material.textfield.TextInputLayout
+import androidx.preference.EditTextPreference
+import androidx.preference.Preference
+import androidx.preference.PreferenceFragmentCompat
 
 class ScreensActivity : AppCompatActivity() {
 
-    private lateinit var ipCardContainer: LinearLayout
     private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_screens)
-
-        val extendedFab: ExtendedFloatingActionButton = findViewById(R.id.extended_fab)
-        ipCardContainer = findViewById(R.id.ip_card_container)
-
+        setContentView(R.layout.menu_activity)
+        if (savedInstanceState == null) {
+            supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.settings, SettingsFragment())
+                .commit()
+        }
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         sharedPreferences = getSharedPreferences("IP_PREFERENCES", Context.MODE_PRIVATE)
-
-        // Cargar direcciones IP almacenadas
-        loadSavedIpAddresses()
-
-        extendedFab.setOnClickListener {
-            showIpInputDialog()
-        }
     }
 
-    private fun showIpInputDialog() {
-        val inputLayout = TextInputLayout(this)
-        val layoutParams = LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.MATCH_PARENT,
-            LinearLayout.LayoutParams.WRAP_CONTENT
-        )
-        inputLayout.layoutParams = layoutParams
-
-        val ipAddressEditText = EditText(this)
-        ipAddressEditText.hint = "Introduce la dirección IP"
-        inputLayout.addView(ipAddressEditText)
-
-        val alertDialog = AlertDialog.Builder(this)
-            .setTitle("Configurar IP")
-            .setView(inputLayout)
-            .setPositiveButton("Guardar") { _, _ ->
-                saveIpAddress(ipAddressEditText.text.toString())
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                onBackPressed()
+                return true
             }
-            .setNegativeButton("Cancelar") { dialog, _ ->
-                dialog.dismiss()
-            }
-            .create()
-
-        alertDialog.show()
-    }
-
-    private fun saveIpAddress(ipAddress: String) {
-        val editor = sharedPreferences.edit()
-        val ipAddressSet = HashSet(sharedPreferences.getStringSet("IP_ADDRESSES", HashSet())!!)
-        ipAddressSet.add(ipAddress)
-        editor.putStringSet("IP_ADDRESSES", ipAddressSet)
-        editor.apply()
-
-        // Crear una nueva tarjeta para la dirección IP
-        val newCard = createIpCard(ipAddress)
-
-        // Agregar la nueva tarjeta al contenedor
-        ipCardContainer.addView(newCard)
-    }
-
-    private fun loadSavedIpAddresses() {
-        val ipAddressSet = sharedPreferences.getStringSet("IP_ADDRESSES", HashSet()) ?: HashSet()
-        for (ipAddress in ipAddressSet) {
-            val newCard = createIpCard(ipAddress)
-            ipCardContainer.addView(newCard)
         }
+        return super.onOptionsItemSelected(item)
     }
 
-    private fun createIpCard(ipAddress: String): CardView {
-        val cardView = CardView(this)
-        val layoutParams = LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.MATCH_PARENT,
-            LinearLayout.LayoutParams.WRAP_CONTENT
-        )
-        layoutParams.topMargin = resources.getDimensionPixelSize(R.dimen.card_margin)
-        cardView.layoutParams = layoutParams
-        cardView.radius = resources.getDimensionPixelSize(R.dimen.card_corner_radius).toFloat()
-        cardView.cardElevation = resources.getDimensionPixelSize(R.dimen.card_elevation).toFloat()
+    class SettingsFragment : PreferenceFragmentCompat() {
+        override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+            setPreferencesFromResource(R.xml.screen_preferences, rootKey)
+            val buttonKeys = arrayOf(
+                "screen1_ip", "screen2_ip", "screen3_ip",
+                "screen4_ip", "screen5_ip", "screen6_ip",
+                "screen7_ip", "screen8_ip", "screen9_ip"
+            )
 
-        val textView = TextView(this)
-        textView.text = "Dirección IP: $ipAddress"
-        val padding = resources.getDimensionPixelSize(R.dimen.card_padding)
-        textView.setPadding(padding, padding, padding, padding)
+            val sharedPreferences = requireContext().getSharedPreferences("IP_PREFERENCES", Context.MODE_PRIVATE)
 
-        cardView.addView(textView)
-        return cardView
+            for (buttonKey in buttonKeys) {
+                val ipAddress = sharedPreferences.getString(buttonKey, "")
+                val editTextPreference = findPreference<EditTextPreference>(buttonKey)
+                editTextPreference?.summary = ipAddress
+                editTextPreference?.setOnPreferenceChangeListener { _, newValue ->
+                    sharedPreferences.edit().putString(buttonKey, newValue.toString()).apply()
+                    editTextPreference?.summary = newValue.toString()
+
+                    true
+                }
+            }
+        }
+
+        override fun onPreferenceTreeClick(preference: Preference): Boolean {
+            val sharedPreferences = requireContext().getSharedPreferences("IP_PREFERENCES", Context.MODE_PRIVATE)
+
+            when (preference?.key) {
+                "screen1_ip", "screen2_ip", "screen3_ip", "screen4_ip", "screen5_ip",
+                "screen6_ip", "screen7_ip", "screen8_ip", "screen9_ip" -> {
+                    handleButtonClick(preference.key, sharedPreferences)
+                }
+            }
+
+            return super.onPreferenceTreeClick(preference)
+        }
+
+        private fun handleButtonClick(buttonKey: String, sharedPreferences: SharedPreferences) {
+            val editTextPreference = findPreference<EditTextPreference>(buttonKey)
+
+            editTextPreference?.setOnPreferenceChangeListener { _, newValue ->
+                sharedPreferences.edit().putString(buttonKey, newValue.toString()).apply()
+                true
+            }
+        }
     }
 }

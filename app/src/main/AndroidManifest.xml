@@ -14,19 +14,13 @@
         android:theme="@style/Theme.SupraControl"
         tools:targetApi="31">
         <activity
-            android:name=".ScreensActivity2"
+            android:name=".ScreensActivity"
             android:exported="false"
             android:label="@string/title_activity_screens2" />
         <activity
             android:name=".MenuActivity"
             android:exported="false"
             android:label="@string/title_activity_settings" />
-        <activity
-            android:name=".ButtonsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ScreensActivity"
-            android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="true">

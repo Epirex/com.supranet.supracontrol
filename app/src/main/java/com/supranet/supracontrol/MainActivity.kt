@@ -99,7 +99,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 //playSound()
             }
             R.id.buttonscreens ->{
-                val intent = Intent(this, ScreensActivity2::class.java)
+                val intent = Intent(this, ScreensActivity::class.java)
                 startActivity(intent)
             }
             R.id.buttonmenu ->{
