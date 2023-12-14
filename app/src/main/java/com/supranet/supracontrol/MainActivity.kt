@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.media.MediaPlayer
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
@@ -119,24 +120,23 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun mostrarIPsAlmacenadas() {
-        val ipAddressSet = sharedPreferences.getStringSet("IP_ADDRESSES", HashSet())
-
-        if (ipAddressSet.isNullOrEmpty()) {
-            println("No hay direcciones IP almacenadas.")
-            return
-        }
-
-        ipAddressSet?.forEachIndexed { index, ipAddress ->
-            println("IP almacenada $index: $ipAddress")
+        for (i in 1..9) {
+            val key = "screen$i" + "_ip"
+            val ipAddress = sharedPreferences.getString(key, "")
+            if (ipAddress.isNullOrEmpty()) {
+                Log.d("MainActivity", "No hay dirección IP almacenada para $key.")
+            } else {
+                Log.d("MainActivity", "IP almacenada para $key: $ipAddress")
+            }
         }
     }
 
     private fun enviarUrl(url: String) {
         Thread {
-            try {
-                val ipAddressSet = sharedPreferences.getStringSet("IP_ADDRESSES", HashSet()) ?: HashSet()
-
-                for (ipAddress in ipAddressSet) {
+            for (i in 1..9) {
+                val key = "screen$i" + "_ip"
+                val ipAddress = sharedPreferences.getString(key, "")
+                if (!ipAddress.isNullOrEmpty()) {
                     try {
                         val socket = Socket(ipAddress, 12345)
                         val output = PrintWriter(socket.getOutputStream(), true)
@@ -146,8 +146,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                         e.printStackTrace()
                     }
                 }
-            } catch (e: IOException) {
-                e.printStackTrace()
             }
         }.start()
     }
