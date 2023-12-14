@@ -64,6 +64,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         when (view.id) {
             R.id.button1 ->{
                 enviarUrl(button1_url.toString())
+                mostrarIPsAlmacenadas()
                 //playSound()
             }
             R.id.button2 ->{
@@ -114,6 +115,19 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             mediaPlayer.seekTo(0)
         } else {
             mediaPlayer.start()
+        }
+    }
+
+    private fun mostrarIPsAlmacenadas() {
+        val ipAddressSet = sharedPreferences.getStringSet("IP_ADDRESSES", HashSet())
+
+        if (ipAddressSet.isNullOrEmpty()) {
+            println("No hay direcciones IP almacenadas.")
+            return
+        }
+
+        ipAddressSet?.forEachIndexed { index, ipAddress ->
+            println("IP almacenada $index: $ipAddress")
         }
     }
 

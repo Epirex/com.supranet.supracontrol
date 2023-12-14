@@ -3,6 +3,7 @@ package com.supranet.supracontrol
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.EditTextPreference
@@ -78,6 +79,7 @@ class ScreensActivity : AppCompatActivity() {
 
             editTextPreference?.setOnPreferenceChangeListener { _, newValue ->
                 sharedPreferences.edit().putString(buttonKey, newValue.toString()).apply()
+                Log.d("ScreensActivity", "Guardado en $buttonKey: $newValue")
                 true
             }
         }
