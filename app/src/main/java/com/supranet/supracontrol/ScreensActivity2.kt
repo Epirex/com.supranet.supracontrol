@@ -1,5 +1,6 @@
 package com.supranet.supracontrol
 
+import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.MenuItem
@@ -7,9 +8,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.EditTextPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
-import androidx.preference.PreferenceManager
 
 class ScreensActivity2 : AppCompatActivity() {
+
+    private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,6 +23,7 @@ class ScreensActivity2 : AppCompatActivity() {
                 .commit()
         }
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        sharedPreferences = getSharedPreferences("IP_PREFERENCES", Context.MODE_PRIVATE)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -42,15 +45,10 @@ class ScreensActivity2 : AppCompatActivity() {
                 "screen7_ip", "screen8_ip", "screen9_ip"
             )
 
-            val sharedPreferences =
-                PreferenceManager.getDefaultSharedPreferences(requireContext())
+            val sharedPreferences = requireContext().getSharedPreferences("IP_PREFERENCES", Context.MODE_PRIVATE)
 
             for (buttonKey in buttonKeys) {
-                val ipAddress = sharedPreferences.getString(buttonKey, "")
-
                 val editTextPreference = findPreference<EditTextPreference>(buttonKey)
-
-                editTextPreference?.summary = ipAddress
 
                 editTextPreference?.setOnPreferenceChangeListener { _, newValue ->
                     sharedPreferences.edit().putString(buttonKey, newValue.toString()).apply()
@@ -62,12 +60,12 @@ class ScreensActivity2 : AppCompatActivity() {
         }
 
         override fun onPreferenceTreeClick(preference: Preference): Boolean {
-            val sharedPrefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
+            val sharedPreferences = requireContext().getSharedPreferences("IP_PREFERENCES", Context.MODE_PRIVATE)
 
             when (preference?.key) {
                 "screen1_ip", "screen2_ip", "screen3_ip", "screen4_ip", "screen5_ip",
                 "screen6_ip", "screen7_ip", "screen8_ip", "screen9_ip" -> {
-                    handleButtonClick(preference.key, sharedPrefs)
+                    handleButtonClick(preference.key, sharedPreferences)
                 }
             }
 

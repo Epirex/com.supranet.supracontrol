@@ -23,6 +23,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         setContentView(R.layout.activity_main)
 
         mediaPlayer = MediaPlayer.create(this, R.raw.sound)
+        sharedPreferences = getSharedPreferences("IP_PREFERENCES", Context.MODE_PRIVATE)
 
         val button1: Button = findViewById(R.id.button1)
         val button2: Button = findViewById(R.id.button2)
@@ -119,7 +120,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     private fun enviarUrl(url: String) {
         Thread {
             try {
-                val sharedPreferences = getSharedPreferences("IP_PREFERENCES", Context.MODE_PRIVATE)
                 val ipAddressSet = sharedPreferences.getStringSet("IP_ADDRESSES", HashSet()) ?: HashSet()
 
                 for (ipAddress in ipAddressSet) {
