@@ -28,6 +28,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             startActivity(intent)
             true
         }
+        val MenuItem = menu?.findItem(R.id.menuitem)
+        MenuItem?.setOnMenuItemClickListener {
+            val intent = Intent(this, MenuActivity::class.java)
+            startActivity(intent)
+            true
+        }
         return true
     }
 
@@ -47,7 +53,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         val button7: Button = findViewById(R.id.button7)
         val button8: Button = findViewById(R.id.button8)
         val button9: Button = findViewById(R.id.button9)
-        val buttonmenu: Button = findViewById(R.id.buttonmenu)
 
         button1.setOnClickListener(this)
         button2.setOnClickListener(this)
@@ -58,7 +63,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         button7.setOnClickListener(this)
         button8.setOnClickListener(this)
         button9.setOnClickListener(this)
-        buttonmenu.setOnClickListener(this)
     }
 
     override fun onClick(view: View) {
@@ -144,10 +148,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                         enviarUrl(url, index + 1)
                     }
                 }
-            }
-            R.id.buttonmenu ->{
-                val intent = Intent(this, MenuActivity::class.java)
-                startActivity(intent)
             }
         }
     }
