@@ -6,6 +6,7 @@ import android.content.SharedPreferences
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
 import android.view.View
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
@@ -18,6 +19,17 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var mediaPlayer: MediaPlayer
     private lateinit var sharedPreferences: SharedPreferences
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main_menu, menu)
+        val ScreenItem = menu?.findItem(R.id.screenitem)
+        ScreenItem?.setOnMenuItemClickListener {
+            val intent = Intent(this, ScreensActivity::class.java)
+            startActivity(intent)
+            true
+        }
+        return true
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,7 +47,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         val button7: Button = findViewById(R.id.button7)
         val button8: Button = findViewById(R.id.button8)
         val button9: Button = findViewById(R.id.button9)
-        val buttonscreens: Button = findViewById(R.id.buttonscreens)
         val buttonmenu: Button = findViewById(R.id.buttonmenu)
 
         button1.setOnClickListener(this)
@@ -47,7 +58,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         button7.setOnClickListener(this)
         button8.setOnClickListener(this)
         button9.setOnClickListener(this)
-        buttonscreens.setOnClickListener(this)
         buttonmenu.setOnClickListener(this)
     }
 
@@ -134,10 +144,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                         enviarUrl(url, index + 1)
                     }
                 }
-            }
-            R.id.buttonscreens ->{
-                val intent = Intent(this, ScreensActivity::class.java)
-                startActivity(intent)
             }
             R.id.buttonmenu ->{
                 val intent = Intent(this, MenuActivity::class.java)
