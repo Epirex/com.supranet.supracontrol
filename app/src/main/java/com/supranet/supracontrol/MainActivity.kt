@@ -53,52 +53,87 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onClick(view: View) {
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
-        val button1_url = sharedPreferences.getString("button1_url", "http://www.supranet.ar")
-        val button2_url = sharedPreferences.getString("button2_url", "http://www.supranet.ar")
-        val button3_url = sharedPreferences.getString("button3_url", "http://www.supranet.ar")
-        val button4_url = sharedPreferences.getString("button4_url", "http://www.supranet.ar")
-        val button5_url = sharedPreferences.getString("button5_url", "http://www.supranet.ar")
-        val button6_url = sharedPreferences.getString("button6_url", "http://www.supranet.ar")
-        val button7_url = sharedPreferences.getString("button7_url", "http://www.supranet.ar")
-        val button8_url = sharedPreferences.getString("button8_url", "http://www.supranet.ar")
-        val button9_url = sharedPreferences.getString("button9_url", "http://www.supranet.ar")
+        val button1_urls = sharedPreferences.getString("button1_url", "http://www.supranet.ar")
+            ?.split(", ")
+        val button2_urls = sharedPreferences.getString("button2_url", "http://www.supranet.ar")
+            ?.split(", ")
+        val button3_urls = sharedPreferences.getString("button3_url", "http://www.supranet.ar")
+            ?.split(", ")
+        val button4_urls = sharedPreferences.getString("button4_url", "http://www.supranet.ar")
+            ?.split(", ")
+        val button5_urls = sharedPreferences.getString("button5_url", "http://www.supranet.ar")
+            ?.split(", ")
+        val button6_urls = sharedPreferences.getString("button6_url", "http://www.supranet.ar")
+            ?.split(", ")
+        val button7_urls = sharedPreferences.getString("button7_url", "http://www.supranet.ar")
+            ?.split(", ")
+        val button8_urls = sharedPreferences.getString("button8_url", "http://www.supranet.ar")
+            ?.split(", ")
+        val button9_urls = sharedPreferences.getString("button9_url", "http://www.supranet.ar")
+            ?.split(", ")
         when (view.id) {
-            R.id.button1 ->{
-                enviarUrl(button1_url.toString())
-                mostrarIPsAlmacenadas()
-                //playSound()
+            R.id.button1 -> {
+                if (button1_urls != null) {
+                    for ((index, url) in button1_urls.withIndex()) {
+                        enviarUrl(url, index + 1)
+                    }
+                }
             }
-            R.id.button2 ->{
-                enviarUrl(button2_url.toString())
-                //playSound()
+            R.id.button2 -> {
+                if (button2_urls != null) {
+                    for ((index, url) in button2_urls.withIndex()) {
+                        enviarUrl(url, index + 1)
+                    }
+                }
             }
-            R.id.button3 ->{
-                enviarUrl(button3_url.toString())
-                //playSound()
+            R.id.button3 -> {
+                if (button3_urls != null) {
+                    for ((index, url) in button3_urls.withIndex()) {
+                        enviarUrl(url, index + 1)
+                    }
+                }
             }
-            R.id.button4 ->{
-                enviarUrl(button4_url.toString())
-                //playSound()
+            R.id.button4 -> {
+                if (button4_urls != null) {
+                    for ((index, url) in button4_urls.withIndex()) {
+                        enviarUrl(url, index + 1)
+                    }
+                }
             }
-            R.id.button5 ->{
-                enviarUrl(button5_url.toString())
-                //playSound()
+            R.id.button5 -> {
+                if (button5_urls != null) {
+                    for ((index, url) in button5_urls.withIndex()) {
+                        enviarUrl(url, index + 1)
+                    }
+                }
             }
-            R.id.button6 ->{
-                enviarUrl(button6_url.toString())
-                //playSound()
+            R.id.button6 -> {
+                if (button6_urls != null) {
+                    for ((index, url) in button6_urls.withIndex()) {
+                        enviarUrl(url, index + 1)
+                    }
+                }
             }
-            R.id.button7 ->{
-                enviarUrl(button7_url.toString())
-                //playSound()
+            R.id.button7 -> {
+                if (button7_urls != null) {
+                    for ((index, url) in button7_urls.withIndex()) {
+                        enviarUrl(url, index + 1)
+                    }
+                }
             }
-            R.id.button8 ->{
-                enviarUrl(button8_url.toString())
-                //playSound()
+            R.id.button8 -> {
+                if (button8_urls != null) {
+                    for ((index, url) in button8_urls.withIndex()) {
+                        enviarUrl(url, index + 1)
+                    }
+                }
             }
-            R.id.button9 ->{
-                enviarUrl(button9_url.toString())
-                //playSound()
+            R.id.button9 -> {
+                if (button9_urls != null) {
+                    for ((index, url) in button9_urls.withIndex()) {
+                        enviarUrl(url, index + 1)
+                    }
+                }
             }
             R.id.buttonscreens ->{
                 val intent = Intent(this, ScreensActivity::class.java)
@@ -131,20 +166,18 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-    private fun enviarUrl(url: String) {
+    private fun enviarUrl(url: String, pantalla: Int) {
         Thread {
-            for (i in 1..9) {
-                val key = "screen$i" + "_ip"
-                val ipAddress = sharedPreferences.getString(key, "")
-                if (!ipAddress.isNullOrEmpty()) {
-                    try {
-                        val socket = Socket(ipAddress, 12345)
-                        val output = PrintWriter(socket.getOutputStream(), true)
-                        output.println(url)
-                        socket.close()
-                    } catch (e: IOException) {
-                        e.printStackTrace()
-                    }
+            val key = "screen$pantalla" + "_ip"
+            val ipAddress = sharedPreferences.getString(key, "")
+            if (!ipAddress.isNullOrEmpty()) {
+                try {
+                    val socket = Socket(ipAddress, 12345)
+                    val output = PrintWriter(socket.getOutputStream(), true)
+                    output.println(url)
+                    socket.close()
+                } catch (e: IOException) {
+                    e.printStackTrace()
                 }
             }
         }.start()
