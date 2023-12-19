@@ -80,6 +80,8 @@ class ScreensActivity : AppCompatActivity() {
             editTextPreference?.setOnPreferenceChangeListener { _, newValue ->
                 sharedPreferences.edit().putString(buttonKey, newValue.toString()).apply()
                 Log.d("ScreensActivity", "Guardado en $buttonKey: $newValue")
+                // No es la mejor forma de resolverlo, es temporal hasta que encuentre una solucion mejor.
+                requireActivity().recreate()
                 true
             }
         }

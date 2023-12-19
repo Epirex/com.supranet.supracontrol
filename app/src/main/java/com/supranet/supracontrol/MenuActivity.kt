@@ -101,6 +101,8 @@ class MenuActivity : AppCompatActivity() {
 
             editTextPreference?.setOnPreferenceChangeListener { preference, newValue ->
                 sharedPrefs.edit().putString(buttonKey, newValue.toString()).apply()
+                // No es la mejor forma de resolverlo, es temporal hasta que encuentre una solucion mejor.
+                requireActivity().recreate()
                 true
             }
         }
