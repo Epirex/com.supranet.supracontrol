@@ -5,7 +5,6 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.media.MediaPlayer
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.View
@@ -178,26 +177,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         floatingDialog?.show()
 
         return true
-    }
-
-    private fun playSound() {
-        if (mediaPlayer.isPlaying) {
-            mediaPlayer.seekTo(0)
-        } else {
-            mediaPlayer.start()
-        }
-    }
-
-    private fun mostrarIPsAlmacenadas() {
-        for (i in 1..9) {
-            val key = "screen$i" + "_ip"
-            val ipAddress = sharedPreferences.getString(key, "")
-            if (ipAddress.isNullOrEmpty()) {
-                Log.d("MainActivity", "No hay dirección IP almacenada para $key.")
-            } else {
-                Log.d("MainActivity", "IP almacenada para $key: $ipAddress")
-            }
-        }
     }
 
     private fun enviarUrl(url: String, pantalla: Int) {
