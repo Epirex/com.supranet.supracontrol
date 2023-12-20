@@ -55,6 +55,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         val button7: Button = findViewById(R.id.button7)
         val button8: Button = findViewById(R.id.button8)
         val button9: Button = findViewById(R.id.button9)
+        val pantalla1: Button = findViewById(R.id.pantalla1)
+        val pantalla2: Button = findViewById(R.id.pantalla2)
+        val pantalla3: Button = findViewById(R.id.pantalla3)
+        val pantalla4: Button = findViewById(R.id.pantalla4)
 
         button1.setOnClickListener(this)
         button2.setOnClickListener(this)
@@ -65,6 +69,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         button7.setOnClickListener(this)
         button8.setOnClickListener(this)
         button9.setOnClickListener(this)
+        pantalla1.setOnClickListener(this)
+        pantalla2.setOnClickListener(this)
+        pantalla3.setOnClickListener(this)
+        pantalla4.setOnClickListener(this)
 
         button1.setOnLongClickListener  {showFloatingDialog()}
         button2.setOnLongClickListener  {showFloatingDialog()}
@@ -75,6 +83,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         button7.setOnLongClickListener  {showFloatingDialog()}
         button8.setOnLongClickListener  {showFloatingDialog()}
         button9.setOnLongClickListener  {showFloatingDialog()}
+        pantalla1.setOnLongClickListener  {showFloatingDialog()}
+        pantalla2.setOnLongClickListener  {showFloatingDialog()}
+        pantalla3.setOnLongClickListener  {showFloatingDialog()}
+        pantalla4.setOnLongClickListener  {showFloatingDialog()}
     }
 
     override fun onClick(view: View) {
@@ -160,6 +172,22 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                         enviarUrl(url, index + 1)
                     }
                 }
+            }
+            R.id.pantalla1 -> {
+                val intent = Intent(this, MenuActivity::class.java)
+                startActivity(intent)
+            }
+            R.id.pantalla2 -> {
+                val intent = Intent(this, MenuActivity::class.java)
+                startActivity(intent)
+            }
+            R.id.pantalla3 -> {
+                val intent = Intent(this, MenuActivity::class.java)
+                startActivity(intent)
+            }
+            R.id.pantalla4 -> {
+                val intent = Intent(this, MenuActivity::class.java)
+                startActivity(intent)
             }
         }
     }
