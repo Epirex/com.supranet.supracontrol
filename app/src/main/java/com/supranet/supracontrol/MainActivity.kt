@@ -36,6 +36,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             startActivity(intent)
             true
         }
+        val AddItem = menu?.findItem(R.id.additem)
+        AddItem?.setOnMenuItemClickListener {
+            val intent = Intent(this, ProductsAddActivity::class.java)
+            startActivity(intent)
+            true
+        }
         return true
     }
 
