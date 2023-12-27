@@ -180,19 +180,19 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 }
             }
             R.id.pantalla1 -> {
-                val intent = Intent(this, MenuActivity::class.java)
+                val intent = Intent(this, ProductsListActivity::class.java)
                 startActivity(intent)
             }
             R.id.pantalla2 -> {
-                val intent = Intent(this, MenuActivity::class.java)
+                val intent = Intent(this, ProductsListActivity::class.java)
                 startActivity(intent)
             }
             R.id.pantalla3 -> {
-                val intent = Intent(this, MenuActivity::class.java)
+                val intent = Intent(this, ProductsListActivity::class.java)
                 startActivity(intent)
             }
             R.id.pantalla4 -> {
-                val intent = Intent(this, MenuActivity::class.java)
+                val intent = Intent(this, ProductsListActivity::class.java)
                 startActivity(intent)
             }
         }
