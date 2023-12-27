@@ -3,16 +3,14 @@ package com.supranet.supracontrol
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.widget.ArrayAdapter
-import android.widget.EditText
-import android.widget.ListView
+import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 
 class ProductsAddActivity : AppCompatActivity() {
 
-    private val productList = mutableListOf<String>()
+    private val productList = mutableListOf<String>() // Lista para almacenar los elementos
     private lateinit var adapter: ArrayAdapter<String>
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,6 +27,11 @@ class ProductsAddActivity : AppCompatActivity() {
 
         fabAddProduct.setOnClickListener {
             showAddProductDialog()
+        }
+
+        listView.setOnItemLongClickListener { _, _, position, _ ->
+            showDeleteProductDialog(productList[position], position)
+            true
         }
     }
 
@@ -69,7 +72,6 @@ class ProductsAddActivity : AppCompatActivity() {
 
     private fun loadProductList() {
         val sharedPreferences: SharedPreferences = getPreferences(Context.MODE_PRIVATE)
-
         productList.clear()
         productList.addAll(sharedPreferences.getStringSet("productList", emptySet()) ?: emptySet())
 
@@ -78,5 +80,27 @@ class ProductsAddActivity : AppCompatActivity() {
 
     private fun updateListView() {
         adapter.notifyDataSetChanged()
+    }
+
+    private fun showDeleteProductDialog(productName: String, position: Int) {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Eliminar Producto")
+        builder.setMessage("¿Desea eliminar el producto '$productName'?")
+
+        builder.setPositiveButton("Eliminar") { _, _ ->
+            deleteProduct(position)
+        }
+
+        builder.setNegativeButton("Cancelar") { dialog, _ ->
+            dialog.dismiss()
+        }
+
+        builder.show()
+    }
+
+    private fun deleteProduct(position: Int) {
+        productList.removeAt(position)
+        saveProductList()
+        updateListView()
     }
 }
