@@ -10,7 +10,7 @@ import com.google.android.material.floatingactionbutton.ExtendedFloatingActionBu
 
 class ProductsAddActivity : AppCompatActivity() {
 
-    private val productList = mutableListOf<String>() // Lista para almacenar los elementos
+    private val productList = mutableListOf<String>()
     private lateinit var adapter: ArrayAdapter<String>
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -63,7 +63,7 @@ class ProductsAddActivity : AppCompatActivity() {
     }
 
     private fun saveProductList() {
-        val sharedPreferences: SharedPreferences = getPreferences(Context.MODE_PRIVATE)
+        val sharedPreferences: SharedPreferences = getSharedPreferences("ProductPreferences", Context.MODE_PRIVATE)
         val editor: SharedPreferences.Editor = sharedPreferences.edit()
 
         editor.putStringSet("productList", productList.toSet())
@@ -71,7 +71,7 @@ class ProductsAddActivity : AppCompatActivity() {
     }
 
     private fun loadProductList() {
-        val sharedPreferences: SharedPreferences = getPreferences(Context.MODE_PRIVATE)
+        val sharedPreferences: SharedPreferences = getSharedPreferences("ProductPreferences", Context.MODE_PRIVATE)
         productList.clear()
         productList.addAll(sharedPreferences.getStringSet("productList", emptySet()) ?: emptySet())
 
