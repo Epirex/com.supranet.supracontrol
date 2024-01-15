@@ -13,6 +13,9 @@ class ProductsAddActivity : AppCompatActivity() {
     private val productList = mutableListOf<String>()
     private lateinit var adapter: ArrayAdapter<String>
 
+    // Base URL for products
+    private val baseUrl = "http://poster.com.ar/"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_products_add)
@@ -57,7 +60,8 @@ class ProductsAddActivity : AppCompatActivity() {
     }
 
     private fun addProductToList(productName: String) {
-        productList.add(productName)
+        val productUrl = baseUrl + productName
+        productList.add(productUrl)
         saveProductList()
         updateListView()
     }
