@@ -89,10 +89,25 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         button7.setOnLongClickListener  {showFloatingDialog()}
         button8.setOnLongClickListener  {showFloatingDialog()}
         button9.setOnLongClickListener  {showFloatingDialog()}
-        pantalla1.setOnLongClickListener  {showFloatingDialog()}
-        pantalla2.setOnLongClickListener  {showFloatingDialog()}
-        pantalla3.setOnLongClickListener  {showFloatingDialog()}
-        pantalla4.setOnLongClickListener  {showFloatingDialog()}
+        pantalla1.setOnLongClickListener  {
+            enterProductList(ProductsListActivity::class.java)
+            true
+        }
+
+        pantalla2.setOnLongClickListener  {
+            enterProductList(ProductsListActivity::class.java)
+            true
+        }
+
+        pantalla3.setOnLongClickListener  {
+            enterProductList(ProductsListActivity::class.java)
+            true
+        }
+
+        pantalla4.setOnLongClickListener  {
+            enterProductList(ProductsListActivity::class.java)
+            true
+        }
     }
 
     override fun onClick(view: View) {
@@ -180,20 +195,28 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 }
             }
             R.id.pantalla1 -> {
-                val intent = Intent(this, ProductsListActivity::class.java)
-                startActivity(intent)
+                val selectedUrls = obtenerUrlEspecifica()
+                for (url in selectedUrls) {
+                    enviarUrl(url, 1)
+                }
             }
             R.id.pantalla2 -> {
-                val intent = Intent(this, ProductsListActivity::class.java)
-                startActivity(intent)
+                val selectedUrls = obtenerUrlEspecifica()
+                for (url in selectedUrls) {
+                    enviarUrl(url, 2)
+                }
             }
             R.id.pantalla3 -> {
-                val intent = Intent(this, ProductsListActivity::class.java)
-                startActivity(intent)
+                val selectedUrls = obtenerUrlEspecifica()
+                for (url in selectedUrls) {
+                    enviarUrl(url, 3)
+                }
             }
             R.id.pantalla4 -> {
-                val intent = Intent(this, ProductsListActivity::class.java)
-                startActivity(intent)
+                val selectedUrls = obtenerUrlEspecifica()
+                for (url in selectedUrls) {
+                    enviarUrl(url, 4)
+                }
             }
         }
     }
@@ -228,6 +251,17 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 }
             }
         }.start()
+    }
+
+    private fun enterProductList(classProduct: Class<*>) {
+        val intent = Intent(this, classProduct)
+        startActivity(intent)
+    }
+
+    private fun obtenerUrlEspecifica(): List<String> {
+        val sharedPreferences = getSharedPreferences("ProductPreferences", Context.MODE_PRIVATE)
+        val selectedUrls = sharedPreferences.getStringSet("selectedUrls", emptySet()) ?: emptySet()
+        return selectedUrls.toList()
     }
 
     override fun onDestroy() {
