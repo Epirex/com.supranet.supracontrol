@@ -34,8 +34,25 @@ class ProductsListActivity : AppCompatActivity() {
             }
         }
 
+        listView.choiceMode = ListView.CHOICE_MODE_SINGLE  // Cambiar a CHOICE_MODE_SINGLE
+
+        for (i in 0 until adapter.count) {
+            if (selectedUrls.contains(adapter.getItem(i))) {
+                listView.setItemChecked(i, true)
+            }
+        }
+
         listView.setOnItemClickListener { _, _, position, _ ->
             val item = adapter.getItem(position).toString()
+
+            // Desmarcar todos los elementos anteriores
+            for (i in 0 until adapter.count) {
+                if (i != position) {
+                    listView.setItemChecked(i, false)
+                    selectedUrls.remove(adapter.getItem(i).toString())
+                }
+            }
+
             if (selectedUrls.contains(item)) {
                 selectedUrls.remove(item)
             } else {
