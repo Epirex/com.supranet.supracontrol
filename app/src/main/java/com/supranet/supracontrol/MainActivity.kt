@@ -5,11 +5,9 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.media.MediaPlayer
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.Menu
 import android.view.View
 import android.widget.Button
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.PreferenceManager
 import java.io.IOException
@@ -20,7 +18,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var mediaPlayer: MediaPlayer
     private lateinit var sharedPreferences: SharedPreferences
-    private var floatingDialog: AlertDialog? = null
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main_menu, menu)
@@ -80,15 +77,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         pantalla3.setOnClickListener(this)
         pantalla4.setOnClickListener(this)
 
-        button1.setOnLongClickListener  {showFloatingDialog()}
-        button2.setOnLongClickListener  {showFloatingDialog()}
-        button3.setOnLongClickListener  {showFloatingDialog()}
-        button4.setOnLongClickListener  {showFloatingDialog()}
-        button5.setOnLongClickListener  {showFloatingDialog()}
-        button6.setOnLongClickListener  {showFloatingDialog()}
-        button7.setOnLongClickListener  {showFloatingDialog()}
-        button8.setOnLongClickListener  {showFloatingDialog()}
-        button9.setOnLongClickListener  {showFloatingDialog()}
         pantalla1.setOnLongClickListener  {
             enterProductList(ProductsListActivity::class.java)
             true
@@ -219,21 +207,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 }
             }
         }
-    }
-
-    private fun showFloatingDialog(): Boolean {
-        val inflater = LayoutInflater.from(this)
-        val dialogView = inflater.inflate(R.layout.products, null)
-
-        val builder = AlertDialog.Builder(this)
-        builder.setView(dialogView)
-            .setPositiveButton("Salir") { dialog, _ -> dialog.dismiss() }
-
-        floatingDialog?.dismiss()
-        floatingDialog = builder.create()
-        floatingDialog?.show()
-
-        return true
     }
 
     private fun enviarUrl(url: String, pantalla: Int) {
