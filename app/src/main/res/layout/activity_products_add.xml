@@ -23,6 +23,8 @@
         android:layout_marginTop="@dimen/fab_margin"
         android:layout_marginEnd="@dimen/fab_margin"
         android:layout_marginBottom="@dimen/fab_margin"
-        android:text="Añadir Producto"/>
+        android:text="Añadir Producto"
+        android:textColor="@color/md_theme_light_onPrimary"
+        android:backgroundTint="@color/supranet"/>
 
 </RelativeLayout>
