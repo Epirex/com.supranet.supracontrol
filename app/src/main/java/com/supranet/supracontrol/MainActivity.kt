@@ -59,9 +59,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         val button8: Button = findViewById(R.id.button8)
         val button9: Button = findViewById(R.id.button9)
         val pantalla1: Button = findViewById(R.id.pantalla1)
-        val pantalla2: Button = findViewById(R.id.pantalla2)
-        val pantalla3: Button = findViewById(R.id.pantalla3)
-        val pantalla4: Button = findViewById(R.id.pantalla4)
 
         button1.setOnClickListener(this)
         button2.setOnClickListener(this)
@@ -73,29 +70,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         button8.setOnClickListener(this)
         button9.setOnClickListener(this)
         pantalla1.setOnClickListener(this)
-        pantalla2.setOnClickListener(this)
-        pantalla3.setOnClickListener(this)
-        pantalla4.setOnClickListener(this)
-
-        pantalla1.setOnLongClickListener  {
-            enterProductList(ProductsListActivity::class.java)
-            true
-        }
-
-        pantalla2.setOnLongClickListener  {
-            enterProductList(ProductsListActivity::class.java)
-            true
-        }
-
-        pantalla3.setOnLongClickListener  {
-            enterProductList(ProductsListActivity::class.java)
-            true
-        }
-
-        pantalla4.setOnLongClickListener  {
-            enterProductList(ProductsListActivity::class.java)
-            true
-        }
     }
 
     override fun onClick(view: View) {
@@ -183,28 +157,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 }
             }
             R.id.pantalla1 -> {
-                val selectedUrls = obtenerUrlEspecifica()
-                for (url in selectedUrls) {
-                    enviarUrl(url, 1)
-                }
-            }
-            R.id.pantalla2 -> {
-                val selectedUrls = obtenerUrlEspecifica()
-                for (url in selectedUrls) {
-                    enviarUrl(url, 2)
-                }
-            }
-            R.id.pantalla3 -> {
-                val selectedUrls = obtenerUrlEspecifica()
-                for (url in selectedUrls) {
-                    enviarUrl(url, 3)
-                }
-            }
-            R.id.pantalla4 -> {
-                val selectedUrls = obtenerUrlEspecifica()
-                for (url in selectedUrls) {
-                    enviarUrl(url, 4)
-                }
+                val intent = Intent(this, ProductsListActivity::class.java)
+                startActivity(intent)
+                true
             }
         }
     }
@@ -224,17 +179,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 }
             }
         }.start()
-    }
-
-    private fun enterProductList(classProduct: Class<*>) {
-        val intent = Intent(this, classProduct)
-        startActivity(intent)
-    }
-
-    private fun obtenerUrlEspecifica(): List<String> {
-        val sharedPreferences = getSharedPreferences("ProductPreferences", Context.MODE_PRIVATE)
-        val selectedUrls = sharedPreferences.getStringSet("selectedUrls", emptySet()) ?: emptySet()
-        return selectedUrls.toList()
     }
 
     override fun onDestroy() {
