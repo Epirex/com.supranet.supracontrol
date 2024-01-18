@@ -14,48 +14,41 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <com.google.android.material.button.MaterialButtonToggleGroup
-        android:id="@+id/toggleButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/enviarButton"
-        android:layout_centerHorizontal="true">
-
-        <Button
-            style="?attr/materialButtonOutlinedStyle"
-            android:id="@+id/button1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Pantalla 1" />
-
-        <Button
-            style="?attr/materialButtonOutlinedStyle"
-            android:id="@+id/button2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Pantalla 2" />
-
-        <Button
-            style="?attr/materialButtonOutlinedStyle"
-            android:id="@+id/button3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Pantalla 3" />
-
-        <Button
-            style="?attr/materialButtonOutlinedStyle"
-            android:id="@+id/button4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Pantalla 4" />
-    </com.google.android.material.button.MaterialButtonToggleGroup>
-
-    <Button
-        android:id="@+id/enviarButton"
+    <GridLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:columnCount="4"
         android:layout_alignParentBottom="true"
-        android:textColor="@color/md_theme_light_onPrimary"
-        android:text="MOSTRAR PRODUCTO EN PANTALLA" />
+        android:useDefaultMargins="true">
+
+        <Button
+            android:id="@+id/pantalla1"
+            android:layout_width="wrap_content"
+            android:layout_height="90dp"
+            android:textColor="@color/md_theme_light_onPrimary"
+            android:text="PANTALLA 1" />
+
+        <Button
+            android:id="@+id/pantalla2"
+            android:layout_width="wrap_content"
+            android:layout_height="90dp"
+            android:textColor="@color/md_theme_light_onPrimary"
+            android:text="PANTALLA 2" />
+
+        <Button
+            android:id="@+id/pantalla3"
+            android:layout_width="wrap_content"
+            android:layout_height="90dp"
+            android:textColor="@color/md_theme_light_onPrimary"
+            android:text="PANTALLA 3" />
+
+        <Button
+            android:id="@+id/pantalla4"
+            android:layout_width="wrap_content"
+            android:layout_height="90dp"
+            android:textColor="@color/md_theme_light_onPrimary"
+            android:text="PANTALLA 4" />
+
+    </GridLayout>
 
 </RelativeLayout>

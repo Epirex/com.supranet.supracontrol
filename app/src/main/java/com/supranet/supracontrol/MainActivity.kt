@@ -159,7 +159,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             R.id.pantalla1 -> {
                 val intent = Intent(this, ProductsListActivity::class.java)
                 startActivity(intent)
-                true
             }
         }
     }
