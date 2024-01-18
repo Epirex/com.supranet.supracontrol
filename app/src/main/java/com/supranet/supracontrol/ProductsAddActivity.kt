@@ -3,6 +3,7 @@ package com.supranet.supracontrol
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.view.MenuItem
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -12,13 +13,25 @@ class ProductsAddActivity : AppCompatActivity() {
 
     private val productList = mutableListOf<String>()
     private lateinit var adapter: ArrayAdapter<String>
-
     // Base URL for products
     private val baseUrl = "http://poster.com.ar/"
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                onBackPressed()
+                return true
+            }
+            else -> return super.onOptionsItemSelected(item)
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_products_add)
+
+        val actionBar = supportActionBar
+        actionBar?.setDisplayHomeAsUpEnabled(true)
 
         val fabAddProduct: ExtendedFloatingActionButton = findViewById(R.id.fabAddProduct)
         val listView: ListView = findViewById(R.id.listViewProducts)
