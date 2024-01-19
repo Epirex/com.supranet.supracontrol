@@ -3,6 +3,7 @@ package com.supranet.supracontrol
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
@@ -77,8 +78,9 @@ class ProductsAddActivity : AppCompatActivity() {
         productList.add(productUrl)
         saveProductList()
         updateListView()
-    }
 
+        Log.d("ProductURL", "URL guardada: $productUrl")
+    }
     private fun saveProductList() {
         val sharedPreferences: SharedPreferences = getSharedPreferences("ProductPreferences", Context.MODE_PRIVATE)
         val editor: SharedPreferences.Editor = sharedPreferences.edit()
@@ -96,6 +98,13 @@ class ProductsAddActivity : AppCompatActivity() {
     }
 
     private fun updateListView() {
+        val listView: ListView = findViewById(R.id.listViewProducts)
+
+        val displayList = productList.map { it.replace(baseUrl, "") }.toTypedArray()
+
+        adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, displayList)
+        listView.adapter = adapter
+
         adapter.notifyDataSetChanged()
     }
 

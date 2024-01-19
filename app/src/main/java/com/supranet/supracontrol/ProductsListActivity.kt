@@ -29,6 +29,7 @@ class ProductsListActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var adapter: ArrayAdapter<String>
     private lateinit var selectedUrls: MutableSet<String>
     private var selectedScreen: Int = 0
+    private val baseUrl = "http://poster.com.ar/"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,8 +60,7 @@ class ProductsListActivity : AppCompatActivity(), View.OnClickListener {
         // Limpiar la ultima URL seleccionada
         selectedUrls.clear()
 
-        adapter =
-            ArrayAdapter(this, android.R.layout.simple_list_item_multiple_choice, productList)
+        adapter = ArrayAdapter(this, android.R.layout.simple_list_item_multiple_choice, getProductDisplayNames(productList))
 
         val listView: ListView = findViewById(R.id.listView)
         listView.choiceMode = ListView.CHOICE_MODE_SINGLE
@@ -105,7 +105,8 @@ class ProductsListActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun enviarUrlsSeleccionadas(pantalla: Int) {
         for (url in selectedUrls) {
-            enviarUrl(url, pantalla)
+            val fullUrl = baseUrl + url
+            enviarUrl(fullUrl, pantalla)
         }
     }
 
@@ -131,5 +132,12 @@ class ProductsListActivity : AppCompatActivity(), View.OnClickListener {
                 }
             }
         }.start()
+    }
+    private fun getProductDisplayNames(productList: Array<String>): Array<String> {
+        return productList.map { getProductName(it) }.toTypedArray()
+    }
+
+    private fun getProductName(fullUrl: String): String {
+        return fullUrl.replace(baseUrl, "")
     }
 }
