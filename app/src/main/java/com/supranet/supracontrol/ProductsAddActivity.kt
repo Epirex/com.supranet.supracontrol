@@ -19,6 +19,9 @@ class ProductsAddActivity : AppCompatActivity() {
     private lateinit var adapter: ProductListAdapter
     private val baseUrl = "http://poster.com.ar/"
 
+    private val PRODUCT_NAME_PREF = "productNamePref"
+    private val PRODUCT_URL_PREF = "productUrlPref"
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             android.R.id.home -> {
@@ -58,13 +61,19 @@ class ProductsAddActivity : AppCompatActivity() {
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Agregar Producto")
 
-        val input = EditText(this)
-        builder.setView(input)
+        val inflater = LayoutInflater.from(this)
+        val view = inflater.inflate(R.layout.dialog_add_product, null)
+        builder.setView(view)
+
+        val inputName = view.findViewById<EditText>(R.id.editTextProductName)
+        val inputUrl = view.findViewById<EditText>(R.id.editTextProductUrl)
 
         builder.setPositiveButton("Agregar") { _, _ ->
-            val productName = input.text.toString().trim()
-            if (productName.isNotEmpty()) {
-                addProductToList(productName)
+            val productName = inputName.text.toString().trim()
+            val productUrl = inputUrl.text.toString().trim()
+
+            if (productName.isNotEmpty() && productUrl.isNotEmpty()) {
+                addProductToList(productName, productUrl)
             }
         }
 
@@ -75,14 +84,24 @@ class ProductsAddActivity : AppCompatActivity() {
         builder.show()
     }
 
-    private fun addProductToList(productName: String) {
-        val productUrl = baseUrl + productName
-        productList.add(productUrl)
+    private fun addProductToList(productName: String, productUrl: String) {
+        val fullUrl = baseUrl + productUrl
+        productList.add(fullUrl)
         saveProductList()
+        saveProductInfoToSharedPreferences(productName, fullUrl)
         updateListView()
-
-        Log.d("ProductURL", "URL guardada: $productUrl")
     }
+
+    private fun saveProductInfoToSharedPreferences(productName: String, productUrl: String) {
+        val sharedPreferences: SharedPreferences =
+            getSharedPreferences("ProductPreferences", Context.MODE_PRIVATE)
+        val editor: SharedPreferences.Editor = sharedPreferences.edit()
+
+        editor.putString("$PRODUCT_NAME_PREF$productUrl", productName)
+        editor.putString("$PRODUCT_URL_PREF$productUrl", productUrl)
+        editor.apply()
+    }
+
     private fun saveProductList() {
         val sharedPreferences: SharedPreferences =
             getSharedPreferences("ProductPreferences", Context.MODE_PRIVATE)
@@ -202,15 +221,21 @@ class ProductsAddActivity : AppCompatActivity() {
             val editButton = rowView.findViewById(R.id.buttonEdit) as ImageButton
             val deleteButton = rowView.findViewById(R.id.buttonDelete) as ImageButton
 
-            val productName = productList[position].replace(baseUrl, "")
-            textView.text = productName
+            val fullProductUrl = productList[position]
+            val productName = fullProductUrl.replace(baseUrl, "")
+
+            val sharedPreferences: SharedPreferences =
+                context.getSharedPreferences("ProductPreferences", Context.MODE_PRIVATE)
+            val storedProductName = sharedPreferences.getString("$PRODUCT_NAME_PREF$fullProductUrl", "")
+
+            textView.text = if (storedProductName.isNullOrEmpty()) productName else storedProductName
 
             editButton.setOnClickListener {
-                showEditProductDialog(productList[position], position)
+                showEditProductDialog(fullProductUrl, position)
             }
 
             deleteButton.setOnClickListener {
-                showDeleteProductDialog(productList[position], position)
+                showDeleteProductDialog(fullProductUrl, position)
             }
 
             return rowView
