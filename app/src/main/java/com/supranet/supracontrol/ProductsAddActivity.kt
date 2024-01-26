@@ -17,7 +17,7 @@ class ProductsAddActivity : AppCompatActivity() {
 
     private val productList = mutableListOf<String>()
     private lateinit var adapter: ProductListAdapter
-    private val baseUrl = "http://poster.com.ar/"
+    private val baseUrl = "http://supranet.ar/"
 
     private val PRODUCT_NAME_PREF = "productNamePref"
     private val PRODUCT_URL_PREF = "productUrlPref"

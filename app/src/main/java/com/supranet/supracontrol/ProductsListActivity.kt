@@ -29,7 +29,7 @@ class ProductsListActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var adapter: ArrayAdapter<String>
     private lateinit var selectedUrls: MutableSet<String>
     private var selectedScreen: Int = 0
-    private val baseUrl = "http://poster.com.ar/"
+    private val baseUrl = "http://supranet.ar/"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
