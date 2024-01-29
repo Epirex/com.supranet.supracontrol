@@ -25,26 +25,26 @@
 
         <ImageButton
             android:id="@+id/pantalla1"
-            android:layout_width="87dp"
-            android:layout_height="75dp"
+            android:layout_width="135dp"
+            android:layout_height="100dp"
             android:background="@drawable/pantalla1" />
 
         <ImageButton
             android:id="@+id/pantalla2"
-            android:layout_width="87dp"
-            android:layout_height="75dp"
+            android:layout_width="135dp"
+            android:layout_height="100dp"
             android:background="@drawable/pantalla2" />
 
         <ImageButton
             android:id="@+id/pantalla3"
-            android:layout_width="87dp"
-            android:layout_height="75dp"
+            android:layout_width="135dp"
+            android:layout_height="100dp"
             android:background="@drawable/pantalla3" />
 
         <ImageButton
             android:id="@+id/pantalla4"
-            android:layout_width="87dp"
-            android:layout_height="75dp"
+            android:layout_width="135dp"
+            android:layout_height="100dp"
             android:background="@drawable/pantalla4" />
 
     </GridLayout>

@@ -7,6 +7,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import java.io.IOException
@@ -38,10 +39,10 @@ class ProductsListActivity : AppCompatActivity(), View.OnClickListener {
         val actionBar = supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val pantalla1: Button = findViewById(R.id.pantalla1)
-        val pantalla2: Button = findViewById(R.id.pantalla2)
-        val pantalla3: Button = findViewById(R.id.pantalla3)
-        val pantalla4: Button = findViewById(R.id.pantalla4)
+        val pantalla1: ImageButton = findViewById(R.id.pantalla1)
+        val pantalla2: ImageButton = findViewById(R.id.pantalla2)
+        val pantalla3: ImageButton = findViewById(R.id.pantalla3)
+        val pantalla4: ImageButton = findViewById(R.id.pantalla4)
 
         pantalla1.setOnClickListener(this)
         pantalla2.setOnClickListener(this)
