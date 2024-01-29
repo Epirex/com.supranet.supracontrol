@@ -1,5 +1,6 @@
 package com.supranet.supracontrol
 
+import android.animation.Animator
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -10,6 +11,7 @@ import android.view.View
 import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.PreferenceManager
+import com.airbnb.lottie.LottieAnimationView
 import java.io.IOException
 import java.io.PrintWriter
 import java.net.Socket
@@ -18,6 +20,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var mediaPlayer: MediaPlayer
     private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var lottieAnimationView: LottieAnimationView
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main_menu, menu)
@@ -47,6 +50,25 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         setContentView(R.layout.activity_main)
 
         mediaPlayer = MediaPlayer.create(this, R.raw.sound)
+
+        // Lottie time!
+        lottieAnimationView = findViewById(R.id.lottieAnimationView)
+        lottieAnimationView.visibility = View.GONE
+        lottieAnimationView.addAnimatorListener(object : Animator.AnimatorListener {
+            override fun onAnimationStart(animation: Animator) {
+            }
+
+            override fun onAnimationEnd(animation: Animator) {
+                lottieAnimationView.visibility = View.GONE
+            }
+
+            override fun onAnimationCancel(animation: Animator) {
+            }
+
+            override fun onAnimationRepeat(animation: Animator) {
+            }
+        })
+
         sharedPreferences = getSharedPreferences("IP_PREFERENCES", Context.MODE_PRIVATE)
 
         val button1: ImageButton = findViewById(R.id.button1)
@@ -88,6 +110,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             ?.split(", ")
         when (view.id) {
             R.id.button1 -> {
+                lottieAnimationView.visibility = View.VISIBLE
+                lottieAnimationView.playAnimation()
                 if (button1_urls != null) {
                     for ((index, url) in button1_urls.withIndex()) {
                         enviarUrl(url, index + 1)
@@ -95,6 +119,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 }
             }
             R.id.button2 -> {
+                lottieAnimationView.visibility = View.VISIBLE
+                lottieAnimationView.playAnimation()
                 if (button2_urls != null) {
                     for ((index, url) in button2_urls.withIndex()) {
                         enviarUrl(url, index + 1)
@@ -102,6 +128,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 }
             }
             R.id.button3 -> {
+                lottieAnimationView.visibility = View.VISIBLE
+                lottieAnimationView.playAnimation()
                 if (button3_urls != null) {
                     for ((index, url) in button3_urls.withIndex()) {
                         enviarUrl(url, index + 1)
@@ -109,6 +137,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 }
             }
             R.id.button4 -> {
+                lottieAnimationView.visibility = View.VISIBLE
+                lottieAnimationView.playAnimation()
                 if (button4_urls != null) {
                     for ((index, url) in button4_urls.withIndex()) {
                         enviarUrl(url, index + 1)
@@ -116,6 +146,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 }
             }
             R.id.button5 -> {
+                lottieAnimationView.visibility = View.VISIBLE
+                lottieAnimationView.playAnimation()
                 if (button5_urls != null) {
                     for ((index, url) in button5_urls.withIndex()) {
                         enviarUrl(url, index + 1)
@@ -123,6 +155,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 }
             }
             R.id.button6 -> {
+                lottieAnimationView.visibility = View.VISIBLE
+                lottieAnimationView.playAnimation()
                 if (button6_urls != null) {
                     for ((index, url) in button6_urls.withIndex()) {
                         enviarUrl(url, index + 1)
