@@ -2,17 +2,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="25dp"
     android:gravity="center"
     android:orientation="vertical"
+    android:background="@drawable/fondo"
     tools:context=".MainActivity">
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:gravity="center"
-        android:layout_marginBottom="110dp" >
+        android:gravity="center">
 
     </LinearLayout>
 
@@ -22,68 +21,41 @@
         android:columnCount="3"
         android:useDefaultMargins="true">
 
-        <Button
+        <ImageButton
             android:id="@+id/button1"
-            android:layout_width="wrap_content"
-            android:layout_height="100dp"
-            android:textColor="@color/md_theme_light_onPrimary"
-            android:text="MENU 1" />
+            android:layout_width="153dp"
+            android:layout_height="244dp"
+            android:background="@drawable/pizza" />
 
-        <Button
+        <ImageButton
             android:id="@+id/button2"
-            android:layout_width="wrap_content"
-            android:layout_height="100dp"
-            android:textColor="@color/md_theme_light_onPrimary"
-            android:text="MENU 2" />
+            android:layout_width="153dp"
+            android:layout_height="244dp"
+            android:background="@drawable/sandwich" />
 
-        <Button
+        <ImageButton
             android:id="@+id/button3"
-            android:layout_width="wrap_content"
-            android:layout_height="100dp"
-            android:textColor="@color/md_theme_light_onPrimary"
-            android:text="MENU 3" />
+            android:layout_width="153dp"
+            android:layout_height="244dp"
+            android:background="@drawable/otros" />
 
-        <Button
+        <ImageButton
             android:id="@+id/button4"
-            android:layout_width="wrap_content"
-            android:layout_height="100dp"
-            android:textColor="@color/md_theme_light_onPrimary"
-            android:text="MENU 4" />
+            android:layout_width="153dp"
+            android:layout_height="244dp"
+            android:background="@drawable/menu1" />
 
-        <Button
+        <ImageButton
             android:id="@+id/button5"
-            android:layout_width="wrap_content"
-            android:layout_height="100dp"
-            android:textColor="@color/md_theme_light_onPrimary"
-            android:text="MENU 5" />
+            android:layout_width="153dp"
+            android:layout_height="244dp"
+            android:background="@drawable/menu2" />
 
-        <Button
+        <ImageButton
             android:id="@+id/button6"
-            android:layout_width="wrap_content"
-            android:layout_height="100dp"
-            android:textColor="@color/md_theme_light_onPrimary"
-            android:text="MENU 6" />
-
-        <Button
-            android:id="@+id/button7"
-            android:layout_width="wrap_content"
-            android:layout_height="100dp"
-            android:textColor="@color/md_theme_light_onPrimary"
-            android:text="MENU 7" />
-
-        <Button
-            android:id="@+id/button8"
-            android:layout_width="wrap_content"
-            android:layout_height="100dp"
-            android:textColor="@color/md_theme_light_onPrimary"
-            android:text="MENU 8" />
-
-        <Button
-            android:id="@+id/button9"
-            android:layout_width="wrap_content"
-            android:layout_height="100dp"
-            android:textColor="@color/md_theme_light_onPrimary"
-            android:text="MENU 9" />
+            android:layout_width="153dp"
+            android:layout_height="244dp"
+            android:background="@drawable/menu3" />
 
     </GridLayout>
 
@@ -94,12 +66,11 @@
         android:layout_marginTop="50dp"
         android:useDefaultMargins="true">
 
-        <Button
+        <ImageButton
             android:id="@+id/pantalla1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/md_theme_light_onPrimary"
-            android:text="ELEGIR PRODUCTOS" />
+            android:layout_width="479dp"
+            android:layout_height="138dp"
+            android:background="@drawable/productos" />
 
     </GridLayout>
 

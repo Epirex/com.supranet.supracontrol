@@ -7,7 +7,7 @@ import android.media.MediaPlayer
 import android.os.Bundle
 import android.view.Menu
 import android.view.View
-import android.widget.Button
+import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.PreferenceManager
 import java.io.IOException
@@ -49,16 +49,13 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         mediaPlayer = MediaPlayer.create(this, R.raw.sound)
         sharedPreferences = getSharedPreferences("IP_PREFERENCES", Context.MODE_PRIVATE)
 
-        val button1: Button = findViewById(R.id.button1)
-        val button2: Button = findViewById(R.id.button2)
-        val button3: Button = findViewById(R.id.button3)
-        val button4: Button = findViewById(R.id.button4)
-        val button5: Button = findViewById(R.id.button5)
-        val button6: Button = findViewById(R.id.button6)
-        val button7: Button = findViewById(R.id.button7)
-        val button8: Button = findViewById(R.id.button8)
-        val button9: Button = findViewById(R.id.button9)
-        val pantalla1: Button = findViewById(R.id.pantalla1)
+        val button1: ImageButton = findViewById(R.id.button1)
+        val button2: ImageButton = findViewById(R.id.button2)
+        val button3: ImageButton = findViewById(R.id.button3)
+        val button4: ImageButton = findViewById(R.id.button4)
+        val button5: ImageButton = findViewById(R.id.button5)
+        val button6: ImageButton = findViewById(R.id.button6)
+        val pantalla1: ImageButton = findViewById(R.id.pantalla1)
 
         button1.setOnClickListener(this)
         button2.setOnClickListener(this)
@@ -66,9 +63,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         button4.setOnClickListener(this)
         button5.setOnClickListener(this)
         button6.setOnClickListener(this)
-        button7.setOnClickListener(this)
-        button8.setOnClickListener(this)
-        button9.setOnClickListener(this)
         pantalla1.setOnClickListener(this)
     }
 
@@ -131,27 +125,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             R.id.button6 -> {
                 if (button6_urls != null) {
                     for ((index, url) in button6_urls.withIndex()) {
-                        enviarUrl(url, index + 1)
-                    }
-                }
-            }
-            R.id.button7 -> {
-                if (button7_urls != null) {
-                    for ((index, url) in button7_urls.withIndex()) {
-                        enviarUrl(url, index + 1)
-                    }
-                }
-            }
-            R.id.button8 -> {
-                if (button8_urls != null) {
-                    for ((index, url) in button8_urls.withIndex()) {
-                        enviarUrl(url, index + 1)
-                    }
-                }
-            }
-            R.id.button9 -> {
-                if (button9_urls != null) {
-                    for ((index, url) in button9_urls.withIndex()) {
                         enviarUrl(url, index + 1)
                     }
                 }
