@@ -3,25 +3,25 @@
     <PreferenceCategory app:title="@string/messages_header2">
 
         <EditTextPreference
-            app:defaultValue=""
+            app:defaultValue="192.168.100.130"
             app:key="screen1_ip"
             app:summary="Toque para cambiar la direccion IP"
             app:title="Pantalla 1" />
 
         <EditTextPreference
-            app:defaultValue=""
+            app:defaultValue="192.168.100.131"
             app:key="screen2_ip"
             app:summary="Toque para cambiar la direccion IP"
             app:title="Pantalla 2" />
 
         <EditTextPreference
-            app:defaultValue=""
+            app:defaultValue="192.168.100.128"
             app:key="screen3_ip"
             app:summary="Toque para cambiar la direccion IP"
             app:title="Pantalla 3" />
 
         <EditTextPreference
-            app:defaultValue=""
+            app:defaultValue="192.168.100.129"
             app:key="screen4_ip"
             app:summary="Toque para cambiar la direccion IP"
             app:title="Pantalla 4" />
@@ -37,24 +37,6 @@
             app:key="screen6_ip"
             app:summary="Toque para cambiar la direccion IP"
             app:title="Pantalla 6" />
-
-        <EditTextPreference
-            app:defaultValue=""
-            app:key="screen7_ip"
-            app:summary="Toque para cambiar la direccion IP"
-            app:title="Pantalla 7" />
-
-        <EditTextPreference
-            app:defaultValue=""
-            app:key="screen8_ip"
-            app:summary="Toque para cambiar la direccion IP"
-            app:title="Pantalla 8" />
-
-        <EditTextPreference
-            app:defaultValue=""
-            app:key="screen9_ip"
-            app:summary="Toque para cambiar la direccion IP"
-            app:title="Pantalla 9" />
 
     </PreferenceCategory>
 
