@@ -1,12 +1,15 @@
 package com.supranet.supracontrol
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import android.widget.ArrayAdapter
-import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
@@ -96,12 +99,57 @@ class ProductsListActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     override fun onClick(view: View) {
+        val pantalla1: ImageButton = findViewById(R.id.pantalla1)
+        val pantalla2: ImageButton = findViewById(R.id.pantalla2)
+        val pantalla3: ImageButton = findViewById(R.id.pantalla3)
+        val pantalla4: ImageButton = findViewById(R.id.pantalla4)
         when (view.id) {
-            R.id.pantalla1 -> enviarUrlsSeleccionadas(1)
-            R.id.pantalla2 -> enviarUrlsSeleccionadas(2)
-            R.id.pantalla3 -> enviarUrlsSeleccionadas(3)
-            R.id.pantalla4 -> enviarUrlsSeleccionadas(4)
+            R.id.pantalla1 -> {
+                animateButton(pantalla1)
+                enviarUrlsSeleccionadas(1)
+            }
+            R.id.pantalla2 -> {
+                animateButton(pantalla2)
+                enviarUrlsSeleccionadas(2)
+            }
+            R.id.pantalla3 -> {
+                animateButton(pantalla3)
+                enviarUrlsSeleccionadas(3)
+            }
+            R.id.pantalla4 -> {
+                animateButton(pantalla4)
+                enviarUrlsSeleccionadas(4)
+            }
         }
+    }
+
+    private fun animateButton(button: ImageButton) {
+        val scaleDownX = ObjectAnimator.ofFloat(button, "scaleX", 0.9f)
+        val scaleDownY = ObjectAnimator.ofFloat(button, "scaleY", 0.9f)
+
+        val scaleUpX = ObjectAnimator.ofFloat(button, "scaleX", 1f)
+        val scaleUpY = ObjectAnimator.ofFloat(button, "scaleY", 1f)
+
+        scaleDownX.duration = 150
+        scaleDownY.duration = 150
+
+        scaleUpX.duration = 150
+        scaleUpY.duration = 150
+
+        val scaleDown = AnimatorSet()
+        scaleDown.play(scaleDownX).with(scaleDownY)
+
+        val scaleUp = AnimatorSet()
+        scaleUp.play(scaleUpX).with(scaleUpY)
+
+        scaleDown.start()
+
+        scaleDown.addListener(object : AnimatorListenerAdapter() {
+            override fun onAnimationEnd(animation: Animator) {
+                super.onAnimationEnd(animation)
+                scaleUp.start()
+            }
+        })
     }
 
     private fun enviarUrlsSeleccionadas(pantalla: Int) {
