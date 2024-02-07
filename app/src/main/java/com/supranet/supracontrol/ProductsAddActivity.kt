@@ -144,18 +144,29 @@ class ProductsAddActivity : AppCompatActivity() {
         builder.show()
     }
 
-    private fun showEditProductDialog(productName: String, position: Int) {
+    private fun showEditProductDialog(productUrl: String, position: Int) {
+        val sharedPreferences: SharedPreferences =
+            getSharedPreferences("ProductPreferences", Context.MODE_PRIVATE)
+        val productName = sharedPreferences.getString("$PRODUCT_NAME_PREF$productUrl", "") ?: ""
+        val baseUrlRemoved = productUrl.replace(baseUrl, "")
+
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Editar Producto")
 
-        val input = EditText(this)
-        input.setText(productName.replace(baseUrl, ""))
-        builder.setView(input)
+        val view = LayoutInflater.from(this).inflate(R.layout.dialog_edit_product, null)
+        builder.setView(view)
+
+        val inputName = view.findViewById<EditText>(R.id.editTextProductName)
+        val inputUrl = view.findViewById<EditText>(R.id.editTextProductUrl)
+
+        inputName.setText(productName)
+        inputUrl.setText(baseUrlRemoved)
 
         builder.setPositiveButton("Guardar") { _, _ ->
-            val newProductName = input.text.toString().trim()
-            if (newProductName.isNotEmpty()) {
-                editProduct(position, newProductName)
+            val newProductName = inputName.text.toString().trim()
+            val newProductUrl = inputUrl.text.toString().trim()
+            if (newProductName.isNotEmpty() && newProductUrl.isNotEmpty()) {
+                editProduct(position, newProductName, newProductUrl)
             }
         }
 
@@ -166,12 +177,17 @@ class ProductsAddActivity : AppCompatActivity() {
         builder.show()
     }
 
-    private fun editProduct(position: Int, newProductName: String) {
-        productList[position] = baseUrl + newProductName
+    private fun editProduct(position: Int, newProductName: String, newProductUrl: String) {
+        val oldProductUrl = productList[position]
+        val fullUrl = baseUrl + newProductUrl
+
+        saveProductInfoToSharedPreferences(newProductName, fullUrl)
+
+        productList[position] = fullUrl
         saveProductList()
         updateListView()
 
-        Log.d("ProductURL", "URL editada: ${productList[position]}")
+        Log.d("ProductURL", "Producto editado: $newProductName - URL: $fullUrl")
     }
 
     private fun showDeleteProductDialog(productName: String, position: Int) {
