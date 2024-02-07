@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter
 import android.widget.ImageButton
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
+import com.airbnb.lottie.LottieAnimationView
 import java.io.IOException
 import java.io.PrintWriter
 import java.net.Socket
@@ -30,6 +31,7 @@ class ProductsListActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var lottieAnimationView: LottieAnimationView
     private lateinit var adapter: ArrayAdapter<String>
     private lateinit var selectedUrls: MutableSet<String>
     private var selectedScreen: Int = 0
@@ -38,6 +40,82 @@ class ProductsListActivity : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_products_list)
+
+        // Lottie time!
+        val lottieAnimationViewPantalla1: LottieAnimationView = findViewById(R.id.lottieAnimationView)
+        val lottieAnimationViewPantalla2: LottieAnimationView = findViewById(R.id.lottieAnimationView2)
+        val lottieAnimationViewPantalla3: LottieAnimationView = findViewById(R.id.lottieAnimationView3)
+        val lottieAnimationViewPantalla4: LottieAnimationView = findViewById(R.id.lottieAnimationView4)
+
+        lottieAnimationViewPantalla1.setAnimation(R.raw.send)
+        lottieAnimationViewPantalla2.setAnimation(R.raw.send)
+        lottieAnimationViewPantalla3.setAnimation(R.raw.send)
+        lottieAnimationViewPantalla4.setAnimation(R.raw.send)
+
+        lottieAnimationViewPantalla1.visibility = View.GONE
+        lottieAnimationViewPantalla2.visibility = View.GONE
+        lottieAnimationViewPantalla3.visibility = View.GONE
+        lottieAnimationViewPantalla4.visibility = View.GONE
+
+        lottieAnimationViewPantalla1.addAnimatorListener(object : Animator.AnimatorListener {
+            override fun onAnimationStart(animation: Animator) {
+            }
+
+            override fun onAnimationEnd(animation: Animator) {
+                lottieAnimationViewPantalla1.visibility = View.GONE
+            }
+
+            override fun onAnimationCancel(animation: Animator) {
+            }
+
+            override fun onAnimationRepeat(animation: Animator) {
+            }
+        })
+
+        lottieAnimationViewPantalla2.addAnimatorListener(object : Animator.AnimatorListener {
+            override fun onAnimationStart(animation: Animator) {
+            }
+
+            override fun onAnimationEnd(animation: Animator) {
+                lottieAnimationViewPantalla2.visibility = View.GONE
+            }
+
+            override fun onAnimationCancel(animation: Animator) {
+            }
+
+            override fun onAnimationRepeat(animation: Animator) {
+            }
+        })
+
+        lottieAnimationViewPantalla3.addAnimatorListener(object : Animator.AnimatorListener {
+            override fun onAnimationStart(animation: Animator) {
+            }
+
+            override fun onAnimationEnd(animation: Animator) {
+                lottieAnimationViewPantalla3.visibility = View.GONE
+            }
+
+            override fun onAnimationCancel(animation: Animator) {
+            }
+
+            override fun onAnimationRepeat(animation: Animator) {
+            }
+        })
+
+        lottieAnimationViewPantalla4.addAnimatorListener(object : Animator.AnimatorListener {
+            override fun onAnimationStart(animation: Animator) {
+            }
+
+            override fun onAnimationEnd(animation: Animator) {
+                lottieAnimationViewPantalla4.visibility = View.GONE
+            }
+
+            override fun onAnimationCancel(animation: Animator) {
+            }
+
+            override fun onAnimationRepeat(animation: Animator) {
+            }
+        })
 
         val actionBar = supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
@@ -103,21 +181,40 @@ class ProductsListActivity : AppCompatActivity(), View.OnClickListener {
         val pantalla2: ImageButton = findViewById(R.id.pantalla2)
         val pantalla3: ImageButton = findViewById(R.id.pantalla3)
         val pantalla4: ImageButton = findViewById(R.id.pantalla4)
+
+        val lottieAnimationViewPantalla1: LottieAnimationView = findViewById(R.id.lottieAnimationView)
+        val lottieAnimationViewPantalla2: LottieAnimationView = findViewById(R.id.lottieAnimationView2)
+        val lottieAnimationViewPantalla3: LottieAnimationView = findViewById(R.id.lottieAnimationView3)
+        val lottieAnimationViewPantalla4: LottieAnimationView = findViewById(R.id.lottieAnimationView4)
+
+        lottieAnimationViewPantalla1.setAnimation(R.raw.send)
+        lottieAnimationViewPantalla2.setAnimation(R.raw.send)
+        lottieAnimationViewPantalla3.setAnimation(R.raw.send)
+        lottieAnimationViewPantalla4.setAnimation(R.raw.send)
+
         when (view.id) {
             R.id.pantalla1 -> {
                 animateButton(pantalla1)
+                lottieAnimationViewPantalla1.visibility = View.VISIBLE
+                lottieAnimationViewPantalla1.playAnimation()
                 enviarUrlsSeleccionadas(1)
             }
             R.id.pantalla2 -> {
                 animateButton(pantalla2)
+                lottieAnimationViewPantalla2.visibility = View.VISIBLE
+                lottieAnimationViewPantalla2.playAnimation()
                 enviarUrlsSeleccionadas(2)
             }
             R.id.pantalla3 -> {
                 animateButton(pantalla3)
+                lottieAnimationViewPantalla3.visibility = View.VISIBLE
+                lottieAnimationViewPantalla3.playAnimation()
                 enviarUrlsSeleccionadas(3)
             }
             R.id.pantalla4 -> {
                 animateButton(pantalla4)
+                lottieAnimationViewPantalla4.visibility = View.VISIBLE
+                lottieAnimationViewPantalla4.playAnimation()
                 enviarUrlsSeleccionadas(4)
             }
         }
