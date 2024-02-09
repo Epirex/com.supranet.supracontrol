@@ -1,6 +1,7 @@
 package com.supranet.supracontrol
 
 import android.animation.Animator
+import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -8,7 +9,10 @@ import android.media.MediaPlayer
 import android.os.Bundle
 import android.view.Menu
 import android.view.View
+import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageButton
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.PreferenceManager
 import com.airbnb.lottie.LottieAnimationView
@@ -26,14 +30,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         menuInflater.inflate(R.menu.main_menu, menu)
         val ScreenItem = menu?.findItem(R.id.screenitem)
         ScreenItem?.setOnMenuItemClickListener {
-            val intent = Intent(this, ScreensActivity::class.java)
-            startActivity(intent)
+            showPasswordDialog("screen")
             true
         }
         val MenuItem = menu?.findItem(R.id.menuitem)
         MenuItem?.setOnMenuItemClickListener {
-            val intent = Intent(this, MenuActivity::class.java)
-            startActivity(intent)
+            showPasswordDialog("menu")
             true
         }
         val AddItem = menu?.findItem(R.id.additem)
@@ -185,6 +187,94 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 }
             }
         }.start()
+    }
+
+    private fun showPasswordDialog(action: String) {
+        val passwordDialog = Dialog(this)
+        passwordDialog.setContentView(R.layout.password)
+        passwordDialog.setCancelable(false)
+
+        val buttonpass1 = passwordDialog.findViewById<Button>(R.id.buttonpass1)
+        val buttonpass2 = passwordDialog.findViewById<Button>(R.id.buttonpass2)
+        val buttonpass3 = passwordDialog.findViewById<Button>(R.id.buttonpass3)
+        val buttonpass4 = passwordDialog.findViewById<Button>(R.id.buttonpass4)
+        val buttonpass5 = passwordDialog.findViewById<Button>(R.id.buttonpass5)
+        val buttonpass6 = passwordDialog.findViewById<Button>(R.id.buttonpass6)
+        val buttonpass7 = passwordDialog.findViewById<Button>(R.id.buttonpass7)
+        val buttonpass8 = passwordDialog.findViewById<Button>(R.id.buttonpass8)
+        val buttonpass9 = passwordDialog.findViewById<Button>(R.id.buttonpass9)
+        val buttonpass0 = passwordDialog.findViewById<Button>(R.id.buttonpass0)
+        val buttonClear = passwordDialog.findViewById<Button>(R.id.buttonClear)
+        val buttonExit = passwordDialog.findViewById<Button>(R.id.buttonExit)
+        val sendButton = passwordDialog.findViewById<Button>(R.id.buttonDone)
+        val passwordEditText = passwordDialog.findViewById<EditText>(R.id.passwordEditText)
+
+        buttonpass1.setOnClickListener {
+            passwordEditText.append("1")
+        }
+        buttonpass2.setOnClickListener {
+            passwordEditText.append("2")
+        }
+        buttonpass3.setOnClickListener {
+            passwordEditText.append("3")
+        }
+        buttonpass4.setOnClickListener {
+            passwordEditText.append("4")
+        }
+        buttonpass5.setOnClickListener {
+            passwordEditText.append("5")
+        }
+        buttonpass6.setOnClickListener {
+            passwordEditText.append("6")
+        }
+        buttonpass7.setOnClickListener {
+            passwordEditText.append("7")
+        }
+        buttonpass8.setOnClickListener {
+            passwordEditText.append("8")
+        }
+
+        buttonpass9.setOnClickListener {
+            passwordEditText.append("9")
+        }
+
+        buttonpass0.setOnClickListener {
+            passwordEditText.append("0")
+        }
+        buttonClear.setOnClickListener {
+            val text = passwordEditText.text
+            if (text.isNotEmpty()) {
+                passwordEditText.text.delete(text.length - 1, text.length)
+            }
+        }
+        buttonExit.setOnClickListener {
+            passwordEditText.text.clear()
+            passwordDialog.dismiss()
+        }
+        sendButton.setOnClickListener {
+            checkPassword(passwordEditText.text.toString(), action)
+            passwordEditText.text.clear()
+            passwordDialog.dismiss()
+        }
+
+        passwordDialog.show()
+    }
+
+    private fun checkPassword(password: String, action: String) {
+        if (password == "3434") {
+            when (action) {
+                "menu" -> {
+                    val intent = Intent(this, MenuActivity::class.java)
+                    startActivity(intent)
+                }
+                "screen" -> {
+                    val intent = Intent(this, ScreensActivity::class.java)
+                    startActivity(intent)
+                }
+            }
+        } else {
+            Toast.makeText(this, "¡Contraseña incorrecta!", Toast.LENGTH_SHORT).show()
+        }
     }
 
     override fun onDestroy() {
