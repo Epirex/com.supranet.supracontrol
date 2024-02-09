@@ -11,14 +11,15 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.preference.PreferenceManager
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 
 class ProductsAddActivity : AppCompatActivity() {
 
     private val productList = mutableListOf<String>()
     private lateinit var adapter: ProductListAdapter
-    private val baseUrl = "http://supranet.ar/"
-
+    private lateinit var baseUrl: String
+    private lateinit var sharedPreferences: SharedPreferences
     private val PRODUCT_NAME_PREF = "productNamePref"
     private val PRODUCT_URL_PREF = "productUrlPref"
 
@@ -35,6 +36,9 @@ class ProductsAddActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_products_add)
+
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
+        baseUrl = sharedPreferences.getString("url_base", "http://supranet.ar/") ?: "http://supranet.ar/"
 
         val actionBar = supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)

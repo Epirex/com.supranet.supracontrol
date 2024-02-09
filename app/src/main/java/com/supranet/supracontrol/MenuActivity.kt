@@ -43,6 +43,12 @@ class MenuActivity : AppCompatActivity() {
 
             val sharedPrefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
 
+            val urlBasePreference = findPreference<EditTextPreference>("url_base")
+            urlBasePreference?.setOnPreferenceChangeListener { _, newValue ->
+                sharedPrefs.edit().putString("url_base", newValue.toString()).apply()
+                true
+            }
+
             // Obtener el valor actual de los URL para actualizar los summary
             for (buttonKey in buttonKeys) {
                 val buttonUrl = sharedPrefs.getString(buttonKey, "default_url")

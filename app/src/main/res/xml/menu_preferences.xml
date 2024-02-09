@@ -3,40 +3,46 @@
     <PreferenceCategory app:title="@string/messages_header">
 
         <EditTextPreference
+            app:defaultValue="http://supranet.ar/"
+            app:key="url_base"
+            app:summary="Toque para cambiar el URL"
+            app:title="URL Base" />
+
+        <EditTextPreference
             app:defaultValue="http://supranet.ar/astor01, http://supranet.ar/astor02, http://supranet.ar/astor-pizza-comun, http://supranet.ar/astor-pizza-especial"
             app:key="button1_url"
             app:summary="Toque para cambiar el URL"
-            app:title="Boton 1" />
+            app:title="Menu 1" />
 
         <EditTextPreference
             app:defaultValue="http://supranet.ar/astor-carne, http://supranet.ar/astor-sandwich-especial, http://supranet.ar/astor-sandwich-jamon, http://supranet.ar/astor-sandwich-palta"
             app:key="button2_url"
             app:summary="Toque para cambiar el URL"
-            app:title="Boton 2" />
+            app:title="Menu 2" />
 
         <EditTextPreference
             app:defaultValue="http://supranet.ar/astor-burritos, http://supranet.ar/astor-focaccia, http://supranet.ar/astor-sandwich-varios, http://supranet.ar/cassaro"
             app:key="button3_url"
             app:summary="Toque para cambiar el URL"
-            app:title="Boton 3" />
+            app:title="Menu 3" />
 
         <EditTextPreference
             app:defaultValue="http://supranet.ar/astor01, http://supranet.ar/astor02, http://supranet.ar/astor03, http://supranet.ar/cassaro"
             app:key="button4_url"
             app:summary="Toque para cambiar el URL"
-            app:title="Boton 4" />
+            app:title="Menu 4" />
 
         <EditTextPreference
             app:defaultValue="http://supranet.ar/"
             app:key="button5_url"
             app:summary="Toque para cambiar el URL"
-            app:title="Boton 5" />
+            app:title="Menu 5" />
 
         <EditTextPreference
             app:defaultValue="http://supranet.ar/"
             app:key="button6_url"
             app:summary="Toque para cambiar el URL"
-            app:title="Boton 6" />
+            app:title="Menu 6" />
 
     </PreferenceCategory>
 

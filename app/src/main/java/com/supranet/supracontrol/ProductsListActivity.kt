@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter
 import android.widget.ImageButton
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.preference.PreferenceManager
 import com.airbnb.lottie.LottieAnimationView
 import java.io.IOException
 import java.io.PrintWriter
@@ -35,11 +36,14 @@ class ProductsListActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var adapter: ArrayAdapter<String>
     private lateinit var selectedUrls: MutableSet<String>
     private var selectedScreen: Int = 0
-    private val baseUrl = "http://supranet.ar/"
+    private lateinit var baseUrl: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_products_list)
+
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
+        baseUrl = sharedPreferences.getString("url_base", "http://supranet.ar/") ?: "http://supranet.ar/"
 
         // Lottie time!
         val lottieAnimationViewPantalla1: LottieAnimationView = findViewById(R.id.lottieAnimationView)
