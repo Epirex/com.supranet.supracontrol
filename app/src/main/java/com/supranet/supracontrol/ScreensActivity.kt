@@ -54,7 +54,7 @@ class ScreensActivity : AppCompatActivity() {
                 editTextPreference?.summary = ipAddress
                 editTextPreference?.setOnPreferenceChangeListener { _, newValue ->
                     sharedPreferences.edit().putString(buttonKey, newValue.toString()).apply()
-                    editTextPreference?.summary = newValue.toString()
+                    editTextPreference.summary = newValue.toString()
 
                     true
                 }
@@ -64,7 +64,7 @@ class ScreensActivity : AppCompatActivity() {
         override fun onPreferenceTreeClick(preference: Preference): Boolean {
             val sharedPreferences = requireContext().getSharedPreferences("IP_PREFERENCES", Context.MODE_PRIVATE)
 
-            when (preference?.key) {
+            when (preference.key) {
                 "screen1_ip", "screen2_ip", "screen3_ip", "screen4_ip", "screen5_ip",
                 "screen6_ip", "screen7_ip", "screen8_ip", "screen9_ip" -> {
                     handleButtonClick(preference.key, sharedPreferences)

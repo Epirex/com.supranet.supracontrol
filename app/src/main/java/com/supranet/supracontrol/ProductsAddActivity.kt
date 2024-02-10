@@ -20,16 +20,16 @@ class ProductsAddActivity : AppCompatActivity() {
     private lateinit var adapter: ProductListAdapter
     private lateinit var baseUrl: String
     private lateinit var sharedPreferences: SharedPreferences
-    private val PRODUCT_NAME_PREF = "productNamePref"
-    private val PRODUCT_URL_PREF = "productUrlPref"
+    private val productNamePref = "productNamePref"
+    private val productUrlPref = "productUrlPref"
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
+        return when (item.itemId) {
             android.R.id.home -> {
                 onBackPressed()
-                return true
+                true
             }
-            else -> return super.onOptionsItemSelected(item)
+            else -> super.onOptionsItemSelected(item)
         }
     }
 
@@ -101,8 +101,8 @@ class ProductsAddActivity : AppCompatActivity() {
             getSharedPreferences("ProductPreferences", Context.MODE_PRIVATE)
         val editor: SharedPreferences.Editor = sharedPreferences.edit()
 
-        editor.putString("$PRODUCT_NAME_PREF$productUrl", productName)
-        editor.putString("$PRODUCT_URL_PREF$productUrl", productUrl)
+        editor.putString("$productNamePref$productUrl", productName)
+        editor.putString("$productUrlPref$productUrl", productUrl)
         editor.apply()
     }
 
@@ -151,7 +151,7 @@ class ProductsAddActivity : AppCompatActivity() {
     private fun showEditProductDialog(productUrl: String, position: Int) {
         val sharedPreferences: SharedPreferences =
             getSharedPreferences("ProductPreferences", Context.MODE_PRIVATE)
-        val productName = sharedPreferences.getString("$PRODUCT_NAME_PREF$productUrl", "") ?: ""
+        val productName = sharedPreferences.getString("$productNamePref$productUrl", "") ?: ""
         val baseUrlRemoved = productUrl.replace(baseUrl, "")
 
         val builder = AlertDialog.Builder(this)
@@ -182,7 +182,6 @@ class ProductsAddActivity : AppCompatActivity() {
     }
 
     private fun editProduct(position: Int, newProductName: String, newProductUrl: String) {
-        val oldProductUrl = productList[position]
         val fullUrl = baseUrl + newProductUrl
 
         saveProductInfoToSharedPreferences(newProductName, fullUrl)
@@ -246,7 +245,7 @@ class ProductsAddActivity : AppCompatActivity() {
 
             val sharedPreferences: SharedPreferences =
                 context.getSharedPreferences("ProductPreferences", Context.MODE_PRIVATE)
-            val storedProductName = sharedPreferences.getString("$PRODUCT_NAME_PREF$fullProductUrl", "")
+            val storedProductName = sharedPreferences.getString("$productNamePref$fullProductUrl", "")
 
             textView.text = if (storedProductName.isNullOrEmpty()) productName else storedProductName
 

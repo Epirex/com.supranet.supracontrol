@@ -32,7 +32,6 @@ class ProductsListActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private lateinit var sharedPreferences: SharedPreferences
-    private lateinit var lottieAnimationView: LottieAnimationView
     private lateinit var adapter: ArrayAdapter<String>
     private lateinit var selectedUrls: MutableSet<String>
     private var selectedScreen: Int = 0

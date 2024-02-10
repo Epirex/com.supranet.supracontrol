@@ -59,7 +59,7 @@ class MenuActivity : AppCompatActivity() {
 
                 editTextPreference?.setOnPreferenceChangeListener { _, newValue ->
                     sharedPrefs.edit().putString(buttonKey, newValue.toString()).apply()
-                    editTextPreference?.summary = "$newValue"
+                    editTextPreference.summary = "$newValue"
 
                     true
                 }
@@ -69,7 +69,7 @@ class MenuActivity : AppCompatActivity() {
         override fun onPreferenceTreeClick(preference: Preference): Boolean {
             val sharedPrefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
 
-            when (preference?.key) {
+            when (preference.key) {
                 "button1_url" -> {
                     handleButtonClick("button1_url", sharedPrefs)
                 }
@@ -105,7 +105,7 @@ class MenuActivity : AppCompatActivity() {
         private fun handleButtonClick(buttonKey: String, sharedPrefs: SharedPreferences) {
             val editTextPreference = findPreference<EditTextPreference>(buttonKey)
 
-            editTextPreference?.setOnPreferenceChangeListener { preference, newValue ->
+            editTextPreference?.setOnPreferenceChangeListener { _, newValue ->
                 sharedPrefs.edit().putString(buttonKey, newValue.toString()).apply()
                 // No es la mejor forma de resolverlo, es temporal hasta que encuentre una solucion mejor.
                 requireActivity().recreate()

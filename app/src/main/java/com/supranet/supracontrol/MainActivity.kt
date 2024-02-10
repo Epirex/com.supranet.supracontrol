@@ -28,18 +28,18 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main_menu, menu)
-        val ScreenItem = menu?.findItem(R.id.screenitem)
-        ScreenItem?.setOnMenuItemClickListener {
+        val screenItem = menu?.findItem(R.id.screenitem)
+        screenItem?.setOnMenuItemClickListener {
             showPasswordDialog("screen")
             true
         }
-        val MenuItem = menu?.findItem(R.id.menuitem)
-        MenuItem?.setOnMenuItemClickListener {
+        val menuItem = menu?.findItem(R.id.menuitem)
+        menuItem?.setOnMenuItemClickListener {
             showPasswordDialog("menu")
             true
         }
-        val AddItem = menu?.findItem(R.id.additem)
-        AddItem?.setOnMenuItemClickListener {
+        val addItem = menu?.findItem(R.id.additem)
+        addItem?.setOnMenuItemClickListener {
             val intent = Intent(this, ProductsAddActivity::class.java)
             startActivity(intent)
             true
@@ -92,30 +92,24 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onClick(view: View) {
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
-        val button1_urls = sharedPreferences.getString("button1_url", "http://www.supranet.ar")
+        val button1urls = sharedPreferences.getString("button1_url", "http://www.supranet.ar")
             ?.split(", ")
-        val button2_urls = sharedPreferences.getString("button2_url", "http://www.supranet.ar")
+        val button2urls = sharedPreferences.getString("button2_url", "http://www.supranet.ar")
             ?.split(", ")
-        val button3_urls = sharedPreferences.getString("button3_url", "http://www.supranet.ar")
+        val button3urls = sharedPreferences.getString("button3_url", "http://www.supranet.ar")
             ?.split(", ")
-        val button4_urls = sharedPreferences.getString("button4_url", "http://www.supranet.ar")
+        val button4urls = sharedPreferences.getString("button4_url", "http://www.supranet.ar")
             ?.split(", ")
-        val button5_urls = sharedPreferences.getString("button5_url", "http://www.supranet.ar")
+        val button5urls = sharedPreferences.getString("button5_url", "http://www.supranet.ar")
             ?.split(", ")
-        val button6_urls = sharedPreferences.getString("button6_url", "http://www.supranet.ar")
-            ?.split(", ")
-        val button7_urls = sharedPreferences.getString("button7_url", "http://www.supranet.ar")
-            ?.split(", ")
-        val button8_urls = sharedPreferences.getString("button8_url", "http://www.supranet.ar")
-            ?.split(", ")
-        val button9_urls = sharedPreferences.getString("button9_url", "http://www.supranet.ar")
+        val button6urls = sharedPreferences.getString("button6_url", "http://www.supranet.ar")
             ?.split(", ")
         when (view.id) {
             R.id.button1 -> {
                 lottieAnimationView.visibility = View.VISIBLE
                 lottieAnimationView.playAnimation()
-                if (button1_urls != null) {
-                    for ((index, url) in button1_urls.withIndex()) {
+                if (button1urls != null) {
+                    for ((index, url) in button1urls.withIndex()) {
                         enviarUrl(url, index + 1)
                     }
                 }
@@ -123,8 +117,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             R.id.button2 -> {
                 lottieAnimationView.visibility = View.VISIBLE
                 lottieAnimationView.playAnimation()
-                if (button2_urls != null) {
-                    for ((index, url) in button2_urls.withIndex()) {
+                if (button2urls != null) {
+                    for ((index, url) in button2urls.withIndex()) {
                         enviarUrl(url, index + 1)
                     }
                 }
@@ -132,8 +126,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             R.id.button3 -> {
                 lottieAnimationView.visibility = View.VISIBLE
                 lottieAnimationView.playAnimation()
-                if (button3_urls != null) {
-                    for ((index, url) in button3_urls.withIndex()) {
+                if (button3urls != null) {
+                    for ((index, url) in button3urls.withIndex()) {
                         enviarUrl(url, index + 1)
                     }
                 }
@@ -141,8 +135,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             R.id.button4 -> {
                 lottieAnimationView.visibility = View.VISIBLE
                 lottieAnimationView.playAnimation()
-                if (button4_urls != null) {
-                    for ((index, url) in button4_urls.withIndex()) {
+                if (button4urls != null) {
+                    for ((index, url) in button4urls.withIndex()) {
                         enviarUrl(url, index + 1)
                     }
                 }
@@ -150,8 +144,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             R.id.button5 -> {
                 lottieAnimationView.visibility = View.VISIBLE
                 lottieAnimationView.playAnimation()
-                if (button5_urls != null) {
-                    for ((index, url) in button5_urls.withIndex()) {
+                if (button5urls != null) {
+                    for ((index, url) in button5urls.withIndex()) {
                         enviarUrl(url, index + 1)
                     }
                 }
@@ -159,8 +153,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             R.id.button6 -> {
                 lottieAnimationView.visibility = View.VISIBLE
                 lottieAnimationView.playAnimation()
-                if (button6_urls != null) {
-                    for ((index, url) in button6_urls.withIndex()) {
+                if (button6urls != null) {
+                    for ((index, url) in button6urls.withIndex()) {
                         enviarUrl(url, index + 1)
                     }
                 }
