@@ -7,6 +7,7 @@ import android.animation.ObjectAnimator
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.ArrayAdapter
@@ -256,6 +257,7 @@ class ProductsListActivity : AppCompatActivity(), View.OnClickListener {
         for (url in selectedUrls) {
             val fullUrl = baseUrl + url
             enviarUrl(fullUrl, pantalla)
+            Log.d("ProductList", "URL: $fullUrl")
         }
     }
 
