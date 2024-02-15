@@ -19,8 +19,6 @@ class ProductsAddActivity : AppCompatActivity() {
     private val productList = mutableListOf<String>()
     private lateinit var adapter: ProductListAdapter
     private lateinit var sharedPreferences: SharedPreferences
-    private val productNamePref = "productNamePref"
-    private val productUrlPref = "productUrlPref"
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
@@ -98,8 +96,8 @@ class ProductsAddActivity : AppCompatActivity() {
             getSharedPreferences("ProductPreferences", Context.MODE_PRIVATE)
         val editor: SharedPreferences.Editor = sharedPreferences.edit()
 
-        editor.putString("$productNamePref$productUrl", productName)
-        editor.putString("$productUrlPref$productUrl", productUrl)
+        val productInfo = "Nombre: $productName, URL: $productUrl"
+        editor.putString(productUrl, productInfo)
         editor.apply()
     }
 
@@ -148,7 +146,9 @@ class ProductsAddActivity : AppCompatActivity() {
     private fun showEditProductDialog(productUrl: String, position: Int) {
         val sharedPreferences: SharedPreferences =
             getSharedPreferences("ProductPreferences", Context.MODE_PRIVATE)
-        val productName = sharedPreferences.getString("$productNamePref$productUrl", "") ?: ""
+        val productInfo = sharedPreferences.getString(productUrl, "")
+        val productName = productInfo?.substringAfter("Nombre: ")?.substringBefore(",") ?: ""
+        val productUrl = productInfo?.substringAfter("URL: ") ?: ""
 
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Editar Producto")
@@ -187,7 +187,12 @@ class ProductsAddActivity : AppCompatActivity() {
         Log.d("ProductURL", "Producto editado: $newProductName - URL: $newProductUrl")
     }
 
-    private fun showDeleteProductDialog(productName: String, position: Int) {
+    private fun showDeleteProductDialog(productUrl: String, position: Int) {
+        val sharedPreferences: SharedPreferences =
+            getSharedPreferences("ProductPreferences", Context.MODE_PRIVATE)
+        val productInfo = sharedPreferences.getString(productUrl, "")
+        val productName = productInfo?.substringAfter("Nombre: ")?.substringBefore(",") ?: ""
+
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Eliminar Producto")
         builder.setMessage("¿Desea eliminar el producto '$productName'?")
@@ -235,13 +240,12 @@ class ProductsAddActivity : AppCompatActivity() {
             val deleteButton = rowView.findViewById(R.id.buttonDelete) as ImageButton
 
             val fullProductUrl = productList[position]
-            val productName = fullProductUrl
-
             val sharedPreferences: SharedPreferences =
                 context.getSharedPreferences("ProductPreferences", Context.MODE_PRIVATE)
-            val storedProductName = sharedPreferences.getString("$productNamePref$fullProductUrl", "")
+            val productInfo = sharedPreferences.getString(fullProductUrl, "")
+            val productName = productInfo?.substringAfter("Nombre: ")?.substringBefore(",") ?: fullProductUrl
 
-            textView.text = if (storedProductName.isNullOrEmpty()) productName else storedProductName
+            textView.text = productName
 
             editButton.setOnClickListener {
                 showEditProductDialog(fullProductUrl, position)

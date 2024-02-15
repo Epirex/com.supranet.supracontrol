@@ -135,16 +135,11 @@ class ProductsListActivity : AppCompatActivity(), View.OnClickListener {
         pantalla4.setOnClickListener(this)
 
         sharedPreferences = getSharedPreferences("ProductPreferences", Context.MODE_PRIVATE)
-        val productList =
-            sharedPreferences.getStringSet("productList", emptySet())?.toTypedArray()
-                ?: emptyArray()
+        val productList = sharedPreferences.getStringSet("productList", emptySet())?.toTypedArray()
+            ?: emptyArray()
 
-        selectedUrls =
-            sharedPreferences.getStringSet("selectedUrls", emptySet())?.toMutableSet()
-                ?: mutableSetOf()
-
-        // Limpiar la ultima URL seleccionada
-        selectedUrls.clear()
+        selectedUrls = sharedPreferences.getStringSet("selectedUrls", emptySet())?.toMutableSet()
+            ?: mutableSetOf()
 
         adapter = ArrayAdapter(this, android.R.layout.simple_list_item_multiple_choice, getProductDisplayNames(productList))
 
@@ -167,13 +162,13 @@ class ProductsListActivity : AppCompatActivity(), View.OnClickListener {
 
         listView.setOnItemClickListener { _, _, position, _ ->
             val item = adapter.getItem(position).toString()
-
+            val (_, url) = getProductInfo(productList[position])
             selectedUrls.clear()
 
-            if (selectedUrls.contains(item)) {
-                selectedUrls.remove(item)
+            if (selectedUrls.contains(url)) {
+                selectedUrls.remove(url)
             } else {
-                selectedUrls.add(item)
+                selectedUrls.add(url)
             }
             saveSelectedUrls()
             adapter.notifyDataSetChanged()
@@ -285,10 +280,14 @@ class ProductsListActivity : AppCompatActivity(), View.OnClickListener {
         }.start()
     }
     private fun getProductDisplayNames(productList: Array<String>): Array<String> {
-        return productList.map { getProductName(it) }.toTypedArray()
+        return productList.map { getProductInfo(it).first }.toTypedArray()
     }
 
-    private fun getProductName(fullUrl: String): String {
-        return fullUrl.replace(baseUrl, "")
+    private fun getProductInfo(productName: String): Pair<String, String> {
+        val sharedPreferences = getSharedPreferences("ProductPreferences", Context.MODE_PRIVATE)
+        val productInfo = sharedPreferences.getString(productName, "") ?: ""
+        val productName = productInfo.substringAfter("Nombre: ").substringBefore(",")
+        val productUrl = productInfo.substringAfter("URL: ")
+        return Pair(productName, productUrl)
     }
 }
