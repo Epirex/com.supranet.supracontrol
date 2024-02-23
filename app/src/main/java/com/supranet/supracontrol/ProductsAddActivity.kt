@@ -4,15 +4,16 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.MenuItem
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.PreferenceManager
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+import java.io.BufferedReader
+import java.io.File
+import java.io.FileReader
+import java.io.FileWriter
 
 class ProductsAddActivity : AppCompatActivity() {
 
@@ -20,10 +21,19 @@ class ProductsAddActivity : AppCompatActivity() {
     private lateinit var adapter: ProductListAdapter
     private lateinit var sharedPreferences: SharedPreferences
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_products_add, menu)
+        return true
+    }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             android.R.id.home -> {
                 onBackPressed()
+                saveProductListToFile()
+                true
+            }
+            R.id.menu_restore -> {
+                showRestoreConfirmationDialog()
                 true
             }
             else -> super.onOptionsItemSelected(item)
@@ -212,6 +222,68 @@ class ProductsAddActivity : AppCompatActivity() {
         productList.removeAt(position)
         saveProductList()
         updateListView()
+    }
+
+    private fun saveProductListToFile() {
+        val externalDir = getExternalFilesDir(null)
+        val file = File(externalDir, "productos.txt")
+        val writer = FileWriter(file)
+
+        for (productUrl in productList) {
+            val sharedPreferences: SharedPreferences =
+                getSharedPreferences("ProductPreferences", Context.MODE_PRIVATE)
+            val productInfo = sharedPreferences.getString(productUrl, "")
+            val productName = productInfo?.substringAfter("Nombre: ")?.substringBefore(",") ?: ""
+            writer.write("$productName,$productUrl\n")
+        }
+        writer.flush()
+        writer.close()
+    }
+
+    private fun loadProductListFromFile() {
+        val externalDir = getExternalFilesDir(null)
+        val file = File(externalDir, "productos.txt")
+
+        if (file.exists()) {
+            val reader = FileReader(file)
+            val bufferedReader = BufferedReader(reader)
+
+            var line: String? = bufferedReader.readLine()
+            while (line != null) {
+                Log.d("LoadProductList", "Read line: $line")
+                val parts = line.split(",")
+                if (parts.size == 2) {
+                    val productName = parts[0]
+                    val productUrl = parts[1]
+                    productList.add(productUrl)
+                    saveProductInfoToSharedPreferences(productName, productUrl)
+                    Log.d("LoadProductList", "Added product: $productName, $productUrl")
+                    saveProductList()
+                    updateListView()
+                }
+                line = bufferedReader.readLine()
+            }
+            bufferedReader.close()
+        } else {
+            Log.d("LoadProductList", "File does not exist")
+        }
+        Log.d("LoadProductList", "Product list size: ${productList.size}")
+    }
+
+    private fun showRestoreConfirmationDialog() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Restaurar Copia de Productos")
+        builder.setMessage("¿Realmente desea restaurar una copia de los productos? Esto reemplazará la lista actual de productos.")
+
+        builder.setPositiveButton("Sí") { _, _ ->
+            loadProductListFromFile()
+        }
+
+        builder.setNegativeButton("No") { dialog, _ ->
+            dialog.dismiss()
+        }
+
+        builder.show()
     }
 
     inner class ProductListAdapter(
